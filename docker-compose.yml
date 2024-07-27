@@ -1,0 +1,26 @@
+version: "3.6"
+services:
+  service:
+    build:
+      dockerfile: docker/service/Dockerfile.service
+    tty: true
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./service:/app
+    environment:
+      - DISPLAY=:10
+  db:
+    build:
+      dockerfile: docker/db/Dockerfile.db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=keiba
+      - TZ="Asia/Tokyo"
+    volumes:
+      - data_store:/var/lib/postgresql/data
+volumes:
+  data_store:
