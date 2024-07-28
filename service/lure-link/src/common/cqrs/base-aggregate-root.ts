@@ -1,4 +1,4 @@
-import { AggregateRoot } from '@nestjs/cqrs';
+import { AggregateRoot, IEvent } from '@nestjs/cqrs';
 
 export abstract class BaseAggregateRoot extends AggregateRoot {
   private eventStreamId: string;
@@ -11,7 +11,7 @@ export abstract class BaseAggregateRoot extends AggregateRoot {
 
   abstract getEventStreamId(): string;
 
-  loadFromHistory(events: any[]) {
+  loadFromHistory(events: IEvent[]) {
     events.forEach((event) => this.apply(event, true));
   }
 
@@ -21,5 +21,10 @@ export abstract class BaseAggregateRoot extends AggregateRoot {
 
   getStreamId(): string {
     return this.eventStreamId;
+  }
+
+  applyWithVersionUpdate(event: IEvent) {
+    this.version++;
+    this.apply(event);
   }
 }

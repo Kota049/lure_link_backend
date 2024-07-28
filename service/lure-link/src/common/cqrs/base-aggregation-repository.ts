@@ -1,11 +1,13 @@
 import { PrismaClient } from '@prisma/client';
 import { EventBus } from '@nestjs/cqrs';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { BaseAggregateRoot } from './base-aggregate-root';
+import { PRISMA_SERVICE_TOKEN } from '../prisma';
 
 @Injectable()
 export abstract class BaseAggregateRootRepository<T extends BaseAggregateRoot> {
   constructor(
+    @Inject(PRISMA_SERVICE_TOKEN)
     private readonly prisma: PrismaClient,
     private readonly eventBus: EventBus,
   ) {}
