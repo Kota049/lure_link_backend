@@ -1,22 +1,18 @@
 import { Global, Module } from '@nestjs/common';
-import { PRISMA_SERVICE_TOKEN, PrismaService } from './prisma/prisma-service';
 import { CqrsModule } from '@nestjs/cqrs';
-
+import { PRISMA_SERVICE_TOKEN, PrismaService } from './prisma-service';
+import { EventStoreService } from './event-store-service';
 @Global()
 @Module({
-  imports: [],
-  controllers: [],
+  imports: [CqrsModule],
   providers: [
     {
       provide: PRISMA_SERVICE_TOKEN,
       useClass: PrismaService,
     },
+    PrismaService,
+    EventStoreService,
   ],
-  exports: [
-    {
-      provide: PRISMA_SERVICE_TOKEN,
-      useClass: PrismaService,
-    },
-  ],
+  exports: [PrismaService, EventStoreService],
 })
 export class CommonModule {}

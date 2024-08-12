@@ -14,10 +14,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 model Event {
-  id        String   @id @default(uuid())
-  streamId  String
+  id        Int      @id @default(autoincrement())
+  streamId String
+  type      String
   payload   Json
   createdAt DateTime @default(now())
-  updatedBy String
-  version   Int
 }
