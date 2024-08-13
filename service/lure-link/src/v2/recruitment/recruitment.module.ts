@@ -5,6 +5,7 @@ import { RecruitmentRepository } from './infrastructure/recruitment.repository';
 import { CreateRecruitmentCommandHandler } from './application/usecases/create-recruitment-command';
 import { UpdateRecruitmentCommandHandler } from './application/usecases/update-recruitment-command';
 import { CqrsModule } from '@nestjs/cqrs';
+import { UpsertRecruitmentProjectionUpdater } from './application/projection-updaters/upsert-recruitment';
 
 @Module({
   imports: [CqrsModule],
@@ -16,6 +17,7 @@ import { CqrsModule } from '@nestjs/cqrs';
     },
     CreateRecruitmentCommandHandler,
     UpdateRecruitmentCommandHandler,
+    UpsertRecruitmentProjectionUpdater,
   ],
 })
 export class RecruitmentModule {}

@@ -21,11 +21,9 @@ export class UpdateRecruitmentCommandHandler
   async execute(command: UpdateRecruitmentCommand): Promise<string> {
     const id = 'hogehoge2';
     const r = await this.repo.getById(id);
-    console.log(r);
     const event = new RecruitmentUpdatedEvent();
     r.update(event);
     await this.repo.save(r);
-    console.log(r);
     return r.id;
   }
 }
