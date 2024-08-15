@@ -1,4 +1,4 @@
-import { ValueObject } from 'src/v2/common/value-object.interface';
+import { ValueObject } from '../../../common/value-object.interface';
 import { ulid } from 'ulid';
 import { z } from 'zod';
 
