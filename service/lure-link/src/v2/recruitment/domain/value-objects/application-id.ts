@@ -3,22 +3,22 @@ import { ulid } from 'ulid';
 import { z } from 'zod';
 import { RecruitmentUnprocessableEntityException } from '../exceptions';
 
-export const RecruitmentIdSchema = z.string().ulid();
+export const ApplicationIdSchema = z.string().ulid();
 
-export class RecruitmentId extends ValueObject<string, string> {
-  static generate(): RecruitmentId {
+export class ApplicationId extends ValueObject<string, string> {
+  static generate(): ApplicationId {
     const id = ulid();
-    return RecruitmentId.from(id);
+    return ApplicationId.from(id);
   }
-  static from(value: string): RecruitmentId {
-    return new RecruitmentId(value);
+  static from(value: string): ApplicationId {
+    return new ApplicationId(value);
   }
   validate(value: string): string {
     try {
-      return RecruitmentIdSchema.parse(value);
+      return ApplicationIdSchema.parse(value);
     } catch (error) {
       throw new RecruitmentUnprocessableEntityException(
-        `RecruitmentId : : ${error}`,
+        `ApplicationId : : ${error}`,
       );
     }
   }
