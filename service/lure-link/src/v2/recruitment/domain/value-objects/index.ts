@@ -8,4 +8,4 @@ export * from './comment';
 export * from './end-date-time';
 export * from './max-participant';
 export * from './start-date-time';
-// export * from './status';
+export * from './status';
