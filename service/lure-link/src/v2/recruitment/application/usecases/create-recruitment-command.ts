@@ -24,6 +24,6 @@ export class CreateRecruitmentCommandHandler
     const event = new RecruitmentCreatedEvent();
     r.create(event);
     await this.repo.save(r);
-    return r.id;
+    return 'id';
   }
 }

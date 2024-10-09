@@ -24,6 +24,6 @@ export class UpdateRecruitmentCommandHandler
     const event = new RecruitmentUpdatedEvent();
     r.update(event);
     await this.repo.save(r);
-    return r.id;
+    return '';
   }
 }
