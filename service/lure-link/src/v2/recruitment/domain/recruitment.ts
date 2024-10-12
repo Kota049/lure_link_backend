@@ -8,12 +8,13 @@ import {
   EndDateTime,
   MaxParticipant,
   Place,
+  RecruitmentId,
   StartDateTime,
   UserId,
 } from './value-objects';
 
 export class RecruitmentAggregate extends AggregateRoot {
-  applicationId: ApplicationId;
+  recruitmentId: RecruitmentId;
   ownerId: UserId;
   destination: Place;
   depature: Place;
@@ -24,16 +25,18 @@ export class RecruitmentAggregate extends AggregateRoot {
   description: Description;
   constructor(id: string) {
     super();
-    this.applicationId = ApplicationId.from(id);
+    this.recruitmentId = RecruitmentId.from(id);
   }
   getStreamId(): string {
-    return `Recruitment-${this.applicationId.value}`;
+    return `Recruitment-${this.recruitmentId.value}`;
   }
 
-  create(event: RecruitmentCreatedEvent) {
+  static create(
+    event: Omit<RecruitmentCreatedEvent, 'recruitmentId'>,
+  ): RecruitmentAggregate {
     // 作成
     // 基本的に全部受け取って、全部埋める
-    this.apply(event);
+    throw new Error('not implement');
   }
 
   apploveApplying(event: any) {
