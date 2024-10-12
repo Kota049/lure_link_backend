@@ -2,16 +2,18 @@ import { AggregateRoot } from '@nestjs/cqrs';
 import { RecruitmentCreatedEvent } from './events/recruitment-created-event';
 import { RecruitmentUpdatedEvent } from './events/recruitment-updated-event';
 import {
-  ApplicationId,
+  Address,
   Budget,
   Description,
   EndDateTime,
   MaxParticipant,
   Place,
+  Prefecture,
   RecruitmentId,
   StartDateTime,
   UserId,
 } from './value-objects';
+import * as dayjs from 'dayjs';
 
 export class RecruitmentAggregate extends AggregateRoot {
   recruitmentId: RecruitmentId;
@@ -32,11 +34,18 @@ export class RecruitmentAggregate extends AggregateRoot {
   }
 
   static create(
-    event: Omit<RecruitmentCreatedEvent, 'recruitmentId'>,
+    props: Omit<RecruitmentCreatedEvent, 'recruitmentId'>,
   ): RecruitmentAggregate {
     // 作成
-    // 基本的に全部受け取って、全部埋める
-    throw new Error('not implement');
+    const recruitmentId = RecruitmentId.generate().value;
+    const aggregate = new RecruitmentAggregate(recruitmentId);
+
+    const event = new RecruitmentCreatedEvent({
+      recruitmentId,
+      ...props,
+    });
+    aggregate.apply(event);
+    return aggregate;
   }
 
   apploveApplying(event: any) {
@@ -63,7 +72,22 @@ export class RecruitmentAggregate extends AggregateRoot {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onRecruitmentCreatedEvent(event: RecruitmentCreatedEvent) {
-    // this.name = 'initial';
+    this.ownerId = UserId.from(event.ownerId);
+    this.destination = new Place({
+      prefecture: Prefecture.from(event.destination.prefecture),
+      address: Address.from(event.destination.address),
+      description: Description.from(event.destination.description),
+    });
+    this.depature = new Place({
+      prefecture: Prefecture.from(event.depature.prefecture),
+      address: Address.from(event.depature.address),
+      description: Description.from(event.depature.description),
+    });
+    this.startDateTime = StartDateTime.from(dayjs(event.startDate).toDate());
+    this.endDateTime = EndDateTime.from(dayjs(event.endDate).toDate());
+    this.maxParticipant = MaxParticipant.from(event.maxParticipant);
+    this.budget = Budget.from(event.budget);
+    this.description = Description.from(event.description);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

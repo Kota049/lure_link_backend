@@ -2,6 +2,9 @@ import { IEvent } from '@nestjs/cqrs';
 import { DomainEvent } from '../../../common/event-type-decorator';
 @DomainEvent('RecruitmentCreatedEvent')
 export class RecruitmentCreatedEvent implements IEvent {
+  constructor(props: RecruitmentCreatedEvent) {
+    Object.assign(this, props);
+  }
   recruitmentId: string;
   ownerId: string;
   destination: Place;

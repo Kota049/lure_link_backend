@@ -12,6 +12,7 @@ import {
   ApplicationId,
   StartDateTime,
   UserId,
+  RecruitmentId,
 } from './value-objects';
 
 describe('Recruitment', () => {
@@ -40,7 +41,7 @@ describe('Recruitment', () => {
     describe('valid', () => {
       it('created', () => {
         const actual = RecruitmentAggregate.create(validProps);
-        expect(actual.recruitmentId).toEqual(expect.any(ApplicationId));
+        expect(actual.recruitmentId).toEqual(expect.any(RecruitmentId));
         expect(actual.ownerId).toEqual(UserId.from(validProps.ownerId));
         expect(actual.destination).toEqual(
           new Place({
