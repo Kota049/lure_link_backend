@@ -21,9 +21,9 @@ export class CreateRecruitmentCommandHandler
   async execute(command: CreateRecruitmentCommand): Promise<string> {
     const id = 'hogehoge2';
     const r = new RecruitmentAggregate(id);
-    const event = new RecruitmentCreatedEvent();
-    r.create(event);
-    await this.repo.save(r);
+    // const event = new RecruitmentCreatedEvent();
+    // r.create(event);
+    // await this.repo.save(r);
     return 'id';
   }
 }

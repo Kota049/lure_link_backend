@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'src/lib/dayjs';
 import { EndDateTime } from './end-date-time';
 
 describe('EndDateTime', () => {

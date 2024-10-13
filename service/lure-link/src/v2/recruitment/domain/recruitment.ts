@@ -13,7 +13,7 @@ import {
   StartDateTime,
   UserId,
 } from './value-objects';
-import * as dayjs from 'dayjs';
+import dayjs from 'src/lib/dayjs';
 
 export class RecruitmentAggregate extends AggregateRoot {
   recruitmentId: RecruitmentId;

@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'src/lib/dayjs';
 import { RecruitmentCreatedEvent } from './events/recruitment-created-event';
 import { RecruitmentAggregate } from './recruitment';
 import {
@@ -9,7 +9,6 @@ import {
   MaxParticipant,
   Place,
   Prefecture,
-  ApplicationId,
   StartDateTime,
   UserId,
   RecruitmentId,
