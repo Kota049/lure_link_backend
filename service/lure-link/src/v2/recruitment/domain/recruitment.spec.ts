@@ -77,6 +77,10 @@ describe('Recruitment', () => {
         validProps.created_at = dayjs('2024-10-11').toISOString();
         expect(() => RecruitmentAggregate.create(validProps)).toThrow(Error);
       });
+      it('start_date is after than end_date', () => {
+        validProps.startDate = dayjs('2024-10-12').toISOString();
+        expect(() => RecruitmentAggregate.create(validProps)).toThrow(Error);
+      });
     });
   });
 });
