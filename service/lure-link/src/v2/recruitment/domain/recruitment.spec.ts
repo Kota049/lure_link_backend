@@ -75,7 +75,7 @@ describe('Recruitment', () => {
     describe('invalid', () => {
       it('start_date is faster than created_at', () => {
         validProps.created_at = dayjs('2024-10-11').toISOString();
-        expect(RecruitmentAggregate.create(validProps)).toThrow(Error);
+        expect(() => RecruitmentAggregate.create(validProps)).toThrow(Error);
       });
     });
   });
