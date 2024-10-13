@@ -53,8 +53,12 @@ export class RecruitmentAggregate extends AggregateRoot {
   ) {
     const startDateDayJs = dayjs(props.startDate);
     const createdAtDayJs = dayjs(props.created_at);
+    const endDateDayJs = dayjs(props.endDate);
     if (startDateDayJs.isBefore(createdAtDayJs)) {
       throw new Error('釣行開始日が過去の日付です');
+    }
+    if (startDateDayJs.isAfter(endDateDayJs)) {
+      throw new Error('釣行終了日が釣行開始日よりも前の日付です');
     }
   }
 
