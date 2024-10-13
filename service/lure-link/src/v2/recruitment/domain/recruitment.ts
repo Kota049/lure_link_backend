@@ -39,17 +39,23 @@ export class RecruitmentAggregate extends AggregateRoot {
     // 作成
     const recruitmentId = RecruitmentId.generate().value;
     const aggregate = new RecruitmentAggregate(recruitmentId);
-    const startDateDayJs = dayjs(props.startDate);
-    const createdAtDayJs = dayjs(props.created_at);
-    if (startDateDayJs.isBefore(createdAtDayJs)) {
-      throw new Error('釣行開始日が過去の日付です');
-    }
+    RecruitmentAggregate.validateCreating(props);
     const event = new RecruitmentCreatedEvent({
       recruitmentId,
       ...props,
     });
     aggregate.apply(event);
     return aggregate;
+  }
+
+  private static validateCreating(
+    props: Omit<RecruitmentCreatedEvent, 'recruitmentId'>,
+  ) {
+    const startDateDayJs = dayjs(props.startDate);
+    const createdAtDayJs = dayjs(props.created_at);
+    if (startDateDayJs.isBefore(createdAtDayJs)) {
+      throw new Error('釣行開始日が過去の日付です');
+    }
   }
 
   apploveApplying(event: any) {
