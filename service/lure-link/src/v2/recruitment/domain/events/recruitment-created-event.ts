@@ -14,6 +14,7 @@ export class RecruitmentCreatedEvent implements IEvent {
   maxParticipant: number;
   budget: number;
   description: string;
+  created_at: string;
 }
 
 export interface Place {

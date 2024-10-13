@@ -34,6 +34,7 @@ describe('Recruitment', () => {
       maxParticipant: 2,
       budget: 1000,
       description: 'サーフフィッシングです。ウェーダー持参でお願いします',
+      created_at: dayjs('2024-10-01').toISOString(),
     };
   });
   describe('create', () => {
@@ -69,6 +70,12 @@ describe('Recruitment', () => {
         expect(actual.description).toEqual(
           Description.from(validProps.description),
         );
+      });
+    });
+    describe('invalid', () => {
+      it('start_date is faster than created_at', () => {
+        validProps.created_at = dayjs('2024-10-11').toISOString();
+        expect(RecruitmentAggregate.create(validProps)).toThrow(Error);
       });
     });
   });
