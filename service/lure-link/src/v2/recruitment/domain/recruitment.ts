@@ -15,6 +15,7 @@ import {
 } from './value-objects';
 import dayjs from 'src/lib/dayjs';
 import { RecruitmentUnprocessableEntityException } from './exceptions';
+import { INVALID_END_DATE, INVALID_START_DATE } from 'common';
 
 export class RecruitmentAggregate extends AggregateRoot {
   recruitmentId: RecruitmentId;
@@ -56,14 +57,10 @@ export class RecruitmentAggregate extends AggregateRoot {
     const createdAtDayJs = dayjs(props.created_at);
     const endDateDayJs = dayjs(props.endDate);
     if (startDateDayJs.isBefore(createdAtDayJs)) {
-      throw new RecruitmentUnprocessableEntityException(
-        '釣行開始日が過去の日付です',
-      );
+      throw new RecruitmentUnprocessableEntityException(INVALID_START_DATE);
     }
     if (startDateDayJs.isAfter(endDateDayJs)) {
-      throw new RecruitmentUnprocessableEntityException(
-        '釣行終了日が釣行開始日よりも前の日付です',
-      );
+      throw new RecruitmentUnprocessableEntityException(INVALID_END_DATE);
     }
   }
 
