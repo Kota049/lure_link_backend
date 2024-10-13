@@ -13,6 +13,7 @@ import {
   UserId,
   RecruitmentId,
 } from './value-objects';
+import { RecruitmentUnprocessableEntityException } from './exceptions';
 
 describe('Recruitment', () => {
   let validProps: Omit<RecruitmentCreatedEvent, 'recruitmentId'>;
@@ -75,11 +76,15 @@ describe('Recruitment', () => {
     describe('invalid', () => {
       it('start_date is faster than created_at', () => {
         validProps.created_at = dayjs('2024-10-11').toISOString();
-        expect(() => RecruitmentAggregate.create(validProps)).toThrow(Error);
+        expect(() => RecruitmentAggregate.create(validProps)).toThrow(
+          RecruitmentUnprocessableEntityException,
+        );
       });
       it('start_date is after than end_date', () => {
         validProps.startDate = dayjs('2024-10-12').toISOString();
-        expect(() => RecruitmentAggregate.create(validProps)).toThrow(Error);
+        expect(() => RecruitmentAggregate.create(validProps)).toThrow(
+          RecruitmentUnprocessableEntityException,
+        );
       });
     });
   });
