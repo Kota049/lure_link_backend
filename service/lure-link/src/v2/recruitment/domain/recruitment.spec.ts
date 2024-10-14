@@ -129,4 +129,12 @@ describe('Recruitment', () => {
       });
     });
   });
+  describe('canApprovedDuaring', () => {
+    it('before applying end-date-time, return true', () => {
+      const aggregate = RecruitmentAggregate.create(validProps);
+      const now = dayjs('2024-10-09').toISOString();
+      const actual = aggregate.canApprovedDuaring(now);
+      expect(actual).toBeTruthy();
+    });
+  });
 });

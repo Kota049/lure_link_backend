@@ -132,4 +132,15 @@ export class RecruitmentAggregate extends AggregateRoot {
   onApprovedApplyingEvent(event: ApprovedApplyingEvent) {
     this.determinedApplying.push(ApplyingId.from(event.applyingId));
   }
+
+  canApprovedDuaring(date: string): boolean {
+    /**
+     * 仕様メモ
+     * 承認可能期間
+     * - 申し込み締め切り前
+     * - 申し込み締め切り-釣行開始日までの期間が2日以上ある場合→申し込み締め切り日から1日
+     * - 申し込み締め切り-釣行開始日までの期間が2未満の場合→申し込み締め切り
+     */
+    throw new Error('UT');
+  }
 }
