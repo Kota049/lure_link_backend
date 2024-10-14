@@ -102,7 +102,6 @@ export class RecruitmentAggregate extends AggregateRoot {
     this.apply(event);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onRecruitmentCreatedEvent(event: RecruitmentCreatedEvent) {
     this.ownerId = UserId.from(event.ownerId);
     this.destination = new Place({
