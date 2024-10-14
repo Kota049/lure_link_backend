@@ -99,6 +99,13 @@ describe('Recruitment', () => {
           RecruitmentUnprocessableEntityException,
         );
       });
+      it('applying_end_date is bedore than created_at', () => {
+        validProps.created_at = dayjs('2024-09-10').toISOString();
+        validProps.applyingEndDateTime = dayjs('2024-09-09').toISOString();
+        expect(() => RecruitmentAggregate.create(validProps)).toThrow(
+          RecruitmentUnprocessableEntityException,
+        );
+      });
     });
   });
 });
