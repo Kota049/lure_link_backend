@@ -16,6 +16,7 @@ import {
 import dayjs from 'src/lib/dayjs';
 import { RecruitmentUnprocessableEntityException } from './exceptions';
 import { INVALID_END_DATE, INVALID_START_DATE } from 'common';
+import { ApplyingEndDateTime } from './value-objects/applying-end-date-time';
 
 export class RecruitmentAggregate extends AggregateRoot {
   recruitmentId: RecruitmentId;
@@ -27,6 +28,7 @@ export class RecruitmentAggregate extends AggregateRoot {
   maxParticipant: MaxParticipant;
   budget: Budget;
   description: Description;
+  applyingEndDateTime: ApplyingEndDateTime;
   constructor(id: string) {
     super();
     this.recruitmentId = RecruitmentId.from(id);

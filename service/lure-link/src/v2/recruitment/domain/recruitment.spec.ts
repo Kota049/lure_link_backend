@@ -14,6 +14,7 @@ import {
   RecruitmentId,
 } from './value-objects';
 import { RecruitmentUnprocessableEntityException } from './exceptions';
+import { ApplyingEndDateTime } from './value-objects/applying-end-date-time';
 
 describe('Recruitment', () => {
   let validProps: Omit<RecruitmentCreatedEvent, 'recruitmentId'>;
@@ -32,6 +33,7 @@ describe('Recruitment', () => {
       },
       endDate: dayjs('2024-10-11').toISOString(),
       startDate: dayjs('2024-10-10').toISOString(),
+      applyingEndDateTime: dayjs('2024-10-10 12:00:00').toISOString(),
       maxParticipant: 2,
       budget: 1000,
       description: 'サーフフィッシングです。ウェーダー持参でお願いします',
@@ -70,6 +72,11 @@ describe('Recruitment', () => {
         );
         expect(actual.description).toEqual(
           Description.from(validProps.description),
+        );
+        expect(actual.applyingEndDateTime).toEqual(
+          new ApplyingEndDateTime(
+            dayjs(validProps.applyingEndDateTime).toDate(),
+          ),
         );
       });
     });
