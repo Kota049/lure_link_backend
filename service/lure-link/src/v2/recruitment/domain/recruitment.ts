@@ -103,6 +103,9 @@ export class RecruitmentAggregate extends AggregateRoot {
     });
     this.startDateTime = StartDateTime.from(dayjs(event.startDate).toDate());
     this.endDateTime = EndDateTime.from(dayjs(event.endDate).toDate());
+    this.applyingEndDateTime = ApplyingEndDateTime.from(
+      dayjs(event.applyingEndDateTime).toDate(),
+    );
     this.maxParticipant = MaxParticipant.from(event.maxParticipant);
     this.budget = Budget.from(event.budget);
     this.description = Description.from(event.description);
