@@ -3,6 +3,7 @@ import { RecruitmentCreatedEvent } from './events/recruitment-created-event';
 import { RecruitmentUpdatedEvent } from './events/recruitment-updated-event';
 import {
   Address,
+  ApplyingId,
   Budget,
   Description,
   EndDateTime,
@@ -15,11 +16,7 @@ import {
 } from './value-objects';
 import dayjs from 'src/lib/dayjs';
 import { RecruitmentUnprocessableEntityException } from './exceptions';
-import {
-  INVALID_END_DATE,
-  INVALID_START_DATE,
-  INVALID_APPLYING_END_DATE,
-} from 'common';
+import { INVALID_END_DATE, INVALID_APPLYING_END_DATE } from 'common';
 import { ApplyingEndDateTime } from './value-objects/applying-end-date-time';
 
 export class RecruitmentAggregate extends AggregateRoot {
@@ -33,6 +30,7 @@ export class RecruitmentAggregate extends AggregateRoot {
   budget: Budget;
   description: Description;
   applyingEndDateTime: ApplyingEndDateTime;
+  determinedApplying: ApplyingId[] = [];
   constructor(id: string) {
     super();
     this.recruitmentId = RecruitmentId.from(id);
@@ -84,7 +82,7 @@ export class RecruitmentAggregate extends AggregateRoot {
 
   apploveApplying(event: any) {
     // UC
-    // 応募集約で集合場所を指定して、承認する
+    // 承認する(集合場所の選択と時間の指定についてはApplyingでやる)
     // 応募のIDをここに登録する
   }
   cancelRecruitment(event: any) {

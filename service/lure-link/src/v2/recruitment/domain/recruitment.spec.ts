@@ -12,9 +12,11 @@ import {
   StartDateTime,
   UserId,
   RecruitmentId,
+  ApplyingId,
 } from './value-objects';
 import { RecruitmentUnprocessableEntityException } from './exceptions';
 import { ApplyingEndDateTime } from './value-objects/applying-end-date-time';
+import { ApprovedApplyingEvent } from './events/apploved-applying.event';
 
 describe('Recruitment', () => {
   let validProps: Omit<RecruitmentCreatedEvent, 'recruitmentId'>;
@@ -105,6 +107,25 @@ describe('Recruitment', () => {
         expect(() => RecruitmentAggregate.create(validProps)).toThrow(
           RecruitmentUnprocessableEntityException,
         );
+      });
+    });
+  });
+  describe('apploveApplying', () => {
+    let props: ApprovedApplyingEvent;
+    beforeEach(() => {
+      props = new ApprovedApplyingEvent({
+        applyingId: ApplyingId.generate().value,
+        recruitmentId: 'not implemnt',
+      });
+    });
+    describe('valid', () => {
+      it('register applying', () => {
+        const aggregate = RecruitmentAggregate.create(validProps);
+        props.recruitmentId = aggregate.recruitmentId.value;
+        aggregate.apploveApplying(props);
+        expect(aggregate.determinedApplying).toEqual([
+          ApplyingId.from(props.applyingId),
+        ]);
       });
     });
   });
