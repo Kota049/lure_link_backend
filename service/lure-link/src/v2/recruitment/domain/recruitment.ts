@@ -15,7 +15,11 @@ import {
 } from './value-objects';
 import dayjs from 'src/lib/dayjs';
 import { RecruitmentUnprocessableEntityException } from './exceptions';
-import { INVALID_END_DATE, INVALID_START_DATE } from 'common';
+import {
+  INVALID_END_DATE,
+  INVALID_START_DATE,
+  INVALID_APPLYING_END_DATE,
+} from 'common';
 import { ApplyingEndDateTime } from './value-objects/applying-end-date-time';
 
 export class RecruitmentAggregate extends AggregateRoot {
@@ -61,7 +65,7 @@ export class RecruitmentAggregate extends AggregateRoot {
     const applyingEndDateTimeDayJs = dayjs(props.applyingEndDateTime);
     if (applyingEndDateTimeDayJs.isAfter(startDateDayJs)) {
       throw new RecruitmentUnprocessableEntityException(
-        '申し込み期限が過去日付です',
+        INVALID_APPLYING_END_DATE,
       );
     }
     if (startDateDayJs.isBefore(createdAtDayJs)) {
