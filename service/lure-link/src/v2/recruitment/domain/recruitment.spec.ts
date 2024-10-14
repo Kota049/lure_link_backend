@@ -33,7 +33,7 @@ describe('Recruitment', () => {
       },
       endDate: dayjs('2024-10-11').toISOString(),
       startDate: dayjs('2024-10-10').toISOString(),
-      applyingEndDateTime: dayjs('2024-10-10 12:00:00').toISOString(),
+      applyingEndDateTime: dayjs('2024-10-09').toISOString(),
       maxParticipant: 2,
       budget: 1000,
       description: 'サーフフィッシングです。ウェーダー持参でお願いします',
@@ -89,6 +89,12 @@ describe('Recruitment', () => {
       });
       it('start_date is after than end_date', () => {
         validProps.startDate = dayjs('2024-10-12').toISOString();
+        expect(() => RecruitmentAggregate.create(validProps)).toThrow(
+          RecruitmentUnprocessableEntityException,
+        );
+      });
+      it('applying_end_date is after than start_date', () => {
+        validProps.applyingEndDateTime = dayjs('2024-10-10').toISOString();
         expect(() => RecruitmentAggregate.create(validProps)).toThrow(
           RecruitmentUnprocessableEntityException,
         );
