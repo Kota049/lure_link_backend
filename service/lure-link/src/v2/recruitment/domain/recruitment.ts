@@ -63,6 +63,10 @@ export class RecruitmentAggregate extends AggregateRoot {
     const createdAtDayJs = dayjs(props.created_at);
     const endDateDayJs = dayjs(props.endDate);
     const applyingEndDateTimeDayJs = dayjs(props.applyingEndDateTime);
+    /**
+     * 適切な時間の並び
+     * 募集作成時 < 申し込み期限 < 釣行開始日 < 釣行終了日
+     */
     if (createdAtDayJs.isAfter(applyingEndDateTimeDayJs)) {
       throw new RecruitmentUnprocessableEntityException(
         INVALID_APPLYING_END_DATE,
@@ -72,9 +76,6 @@ export class RecruitmentAggregate extends AggregateRoot {
       throw new RecruitmentUnprocessableEntityException(
         INVALID_APPLYING_END_DATE,
       );
-    }
-    if (startDateDayJs.isBefore(createdAtDayJs)) {
-      throw new RecruitmentUnprocessableEntityException(INVALID_START_DATE);
     }
     if (startDateDayJs.isAfter(endDateDayJs)) {
       throw new RecruitmentUnprocessableEntityException(INVALID_END_DATE);
