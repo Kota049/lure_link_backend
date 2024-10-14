@@ -94,7 +94,7 @@ describe('Recruitment', () => {
         );
       });
       it('applying_end_date is after than start_date', () => {
-        validProps.applyingEndDateTime = dayjs('2024-10-10').toISOString();
+        validProps.applyingEndDateTime = dayjs('2024-10-11').toISOString();
         expect(() => RecruitmentAggregate.create(validProps)).toThrow(
           RecruitmentUnprocessableEntityException,
         );
