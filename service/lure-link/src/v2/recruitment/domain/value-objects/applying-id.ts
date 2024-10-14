@@ -3,19 +3,19 @@ import { ulid } from 'ulid';
 import { z } from 'zod';
 import { RecruitmentUnprocessableEntityException } from '../exceptions';
 
-export const ApplicationIdSchema = z.string().ulid();
+export const ApplyingIdSchema = z.string().ulid();
 
-export class ApplicationId extends ValueObject<string, string> {
-  static generate(): ApplicationId {
+export class ApplyingId extends ValueObject<string, string> {
+  static generate(): ApplyingId {
     const id = ulid();
-    return ApplicationId.from(id);
+    return ApplyingId.from(id);
   }
-  static from(value: string): ApplicationId {
-    return new ApplicationId(value);
+  static from(value: string): ApplyingId {
+    return new ApplyingId(value);
   }
   validate(value: string): string {
     try {
-      return ApplicationIdSchema.parse(value);
+      return ApplyingIdSchema.parse(value);
     } catch (error) {
       throw new RecruitmentUnprocessableEntityException(
         `ApplicationId : : ${error}`,

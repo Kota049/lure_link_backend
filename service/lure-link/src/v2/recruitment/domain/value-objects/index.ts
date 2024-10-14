@@ -2,7 +2,7 @@ export * from './place-parts';
 export * from './place';
 export * from './recruitment-id';
 export * from './user-id';
-export * from './application-id';
+export * from './applying-id';
 export * from './budget';
 export * from './comment';
 export * from './end-date-time';
