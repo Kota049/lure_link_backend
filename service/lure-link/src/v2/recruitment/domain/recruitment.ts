@@ -63,6 +63,11 @@ export class RecruitmentAggregate extends AggregateRoot {
     const createdAtDayJs = dayjs(props.created_at);
     const endDateDayJs = dayjs(props.endDate);
     const applyingEndDateTimeDayJs = dayjs(props.applyingEndDateTime);
+    if (createdAtDayJs.isAfter(applyingEndDateTimeDayJs)) {
+      throw new RecruitmentUnprocessableEntityException(
+        INVALID_APPLYING_END_DATE,
+      );
+    }
     if (applyingEndDateTimeDayJs.isAfter(startDateDayJs)) {
       throw new RecruitmentUnprocessableEntityException(
         INVALID_APPLYING_END_DATE,
