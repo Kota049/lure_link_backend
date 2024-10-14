@@ -18,6 +18,7 @@ import dayjs from 'src/lib/dayjs';
 import { RecruitmentUnprocessableEntityException } from './exceptions';
 import { INVALID_END_DATE, INVALID_APPLYING_END_DATE } from 'common';
 import { ApplyingEndDateTime } from './value-objects/applying-end-date-time';
+import { ApprovedApplyingEvent } from './events/apploved-applying.event';
 
 export class RecruitmentAggregate extends AggregateRoot {
   recruitmentId: RecruitmentId;
@@ -80,10 +81,9 @@ export class RecruitmentAggregate extends AggregateRoot {
     }
   }
 
-  apploveApplying(event: any) {
-    // UC
-    // 承認する(集合場所の選択と時間の指定についてはApplyingでやる)
-    // 応募のIDをここに登録する
+  apploveApplying(props: ApprovedApplyingEvent) {
+    const event = new ApprovedApplyingEvent(props);
+    this.apply(event);
   }
   cancelRecruitment(event: any) {
     // キャンセルする
@@ -128,5 +128,9 @@ export class RecruitmentAggregate extends AggregateRoot {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onRecruitmentUpdatedEvent(event: RecruitmentUpdatedEvent) {
     // this.name = 'updated';
+  }
+
+  onApprovedApplyingEvent(event: ApprovedApplyingEvent) {
+    this.determinedApplying.push(ApplyingId.from(event.applyingId));
   }
 }

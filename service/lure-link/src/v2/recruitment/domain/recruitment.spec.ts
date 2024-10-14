@@ -113,10 +113,10 @@ describe('Recruitment', () => {
   describe('apploveApplying', () => {
     let props: ApprovedApplyingEvent;
     beforeEach(() => {
-      props = new ApprovedApplyingEvent({
+      props = {
         applyingId: ApplyingId.generate().value,
         recruitmentId: 'not implemnt',
-      });
+      };
     });
     describe('valid', () => {
       it('register applying', () => {
