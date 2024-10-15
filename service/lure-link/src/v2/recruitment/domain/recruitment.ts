@@ -85,6 +85,9 @@ export class RecruitmentAggregate extends AggregateRoot {
     if (!this.canApprovedDuaring(props.currentDate)) {
       throw new Error('');
     }
+    if (this.determinedApplying.find((id) => id.value === props.applyingId)) {
+      throw new Error('');
+    }
     const event = new ApprovedApplyingEvent(props);
     this.apply(event);
   }
