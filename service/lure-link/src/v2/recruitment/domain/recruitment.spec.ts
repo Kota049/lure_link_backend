@@ -128,10 +128,16 @@ describe('Recruitment', () => {
           ApplyingId.from(props.applyingId),
         ]);
       });
-      it('invalid duaring', () => {
+      it('invalid duaring, throw error', () => {
         const aggregate = RecruitmentAggregate.create(validProps);
         props.recruitmentId = aggregate.recruitmentId.value;
         props.currentDate = dayjs('2024-10-09 01:00:00').toISOString();
+        expect(() => aggregate.apploveApplying(props)).toThrow(Error);
+      });
+      it('already approved applying, throw error', () => {
+        const aggregate = RecruitmentAggregate.create(validProps);
+        props.recruitmentId = aggregate.recruitmentId.value;
+        aggregate.determinedApplying = [ApplyingId.from(props.applyingId)];
         expect(() => aggregate.apploveApplying(props)).toThrow(Error);
       });
     });
