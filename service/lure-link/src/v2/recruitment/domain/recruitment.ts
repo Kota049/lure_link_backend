@@ -92,6 +92,11 @@ export class RecruitmentAggregate extends AggregateRoot {
         INVALID_APPROVE_DUARING,
       );
     }
+    if (this.determinedApplying.length >= this.maxParticipant.value) {
+      throw new RecruitmentUnprocessableEntityException(
+        '最大参加人数をオーバーしています',
+      );
+    }
     if (this.determinedApplying.find((id) => id.value === props.applyingId)) {
       throw new RecruitmentUnprocessableEntityException(
         ALREADY_APPROVED_APPLYING,
