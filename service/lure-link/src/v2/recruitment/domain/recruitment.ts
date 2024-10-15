@@ -141,6 +141,6 @@ export class RecruitmentAggregate extends AggregateRoot {
      * - 申し込み締め切り-釣行開始日までの期間が2日以上ある場合→申し込み締め切り日から1日
      * - 申し込み締め切り-釣行開始日までの期間が2未満の場合→申し込み締め切り
      */
-    throw new Error('UT');
+    return true;
   }
 }
