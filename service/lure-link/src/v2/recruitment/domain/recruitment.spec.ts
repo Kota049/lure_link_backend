@@ -128,6 +128,8 @@ describe('Recruitment', () => {
           ApplyingId.from(props.applyingId),
         ]);
       });
+    });
+    describe('invalid', () => {
       it('invalid duaring, throw error', () => {
         const aggregate = RecruitmentAggregate.create(validProps);
         props.recruitmentId = aggregate.recruitmentId.value;
