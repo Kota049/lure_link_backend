@@ -144,7 +144,11 @@ export class RecruitmentAggregate extends AggregateRoot {
     const applyingEndDate = dayjs(this.applyingEndDateTime.value);
     const current = dayjs(date);
     const startDate = dayjs(this.startDateTime.value);
-    if (startDate.diff(applyingEndDate, 'days') >= 2) {
+    if (startDate.diff(applyingEndDate, 'days', true) >= 2) {
+      const deadline = applyingEndDate.add(1, 'day');
+      if (current.isAfter(deadline)) {
+        return false;
+      }
       return true;
     }
     if (current.isAfter(applyingEndDate)) {
