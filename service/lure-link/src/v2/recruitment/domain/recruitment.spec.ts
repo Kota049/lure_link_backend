@@ -142,6 +142,13 @@ describe('Recruitment', () => {
         aggregate.determinedApplying = [ApplyingId.from(props.applyingId)];
         expect(() => aggregate.apploveApplying(props)).toThrow(Error);
       });
+      it('is over max participant,throw error ', () => {
+        const aggregate = RecruitmentAggregate.create(validProps);
+        props.recruitmentId = aggregate.recruitmentId.value;
+        aggregate.maxParticipant = MaxParticipant.from(1);
+        aggregate.determinedApplying = [ApplyingId.generate()];
+        expect(() => aggregate.apploveApplying(props)).toThrow(Error);
+      });
     });
   });
   describe('canApprovedDuaring', () => {
