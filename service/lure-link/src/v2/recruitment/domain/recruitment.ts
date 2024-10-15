@@ -21,6 +21,7 @@ import {
   INVALID_APPLYING_END_DATE,
   ALREADY_APPROVED_APPLYING,
   INVALID_APPROVE_DUARING,
+  OVER_MAX_PARTICIPANT_COUNT,
 } from 'common';
 import { ApplyingEndDateTime } from './value-objects/applying-end-date-time';
 import { ApprovedApplyingEvent } from './events/apploved-applying.event';
@@ -94,7 +95,7 @@ export class RecruitmentAggregate extends AggregateRoot {
     }
     if (this.determinedApplying.length >= this.maxParticipant.value) {
       throw new RecruitmentUnprocessableEntityException(
-        '最大参加人数をオーバーしています',
+        OVER_MAX_PARTICIPANT_COUNT,
       );
     }
     if (this.determinedApplying.find((id) => id.value === props.applyingId)) {
