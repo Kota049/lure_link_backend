@@ -100,12 +100,14 @@ export class RecruitmentAggregate extends AggregateRoot {
     const event = new ApprovedApplyingEvent(props);
     this.apply(event);
   }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   cancelRecruitment(event: any) {
     // キャンセルする
     // ロジック
     // 出発時刻から1h以上経っている場合にはキャンセルはできない
     // キャンセルする場合は理由が必要な方が良さそう
   }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   deleteApplying(event: any) {
     // 応募者がキャンセルする
     // 出発日の3日前まではキャンセル
