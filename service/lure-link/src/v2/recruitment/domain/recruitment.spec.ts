@@ -116,6 +116,7 @@ describe('Recruitment', () => {
       props = {
         applyingId: ApplyingId.generate().value,
         recruitmentId: 'not implemnt',
+        currentDate: dayjs('2024-10-08').toISOString(),
       };
     });
     describe('valid', () => {
@@ -126,6 +127,13 @@ describe('Recruitment', () => {
         expect(aggregate.determinedApplying).toEqual([
           ApplyingId.from(props.applyingId),
         ]);
+      });
+      it('invalid duaring', () => {
+        const aggregate = RecruitmentAggregate.create(validProps);
+        props.recruitmentId = aggregate.recruitmentId.value;
+        props.currentDate = dayjs('2024-10-09').toISOString();
+        aggregate.apploveApplying(props);
+        expect(() => aggregate.apploveApplying(props)).toThrow(Error);
       });
     });
   });

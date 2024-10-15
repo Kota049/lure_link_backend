@@ -7,4 +7,5 @@ export class ApprovedApplyingEvent implements IEvent {
   }
   recruitmentId: string;
   applyingId: string;
+  currentDate: string;
 }
