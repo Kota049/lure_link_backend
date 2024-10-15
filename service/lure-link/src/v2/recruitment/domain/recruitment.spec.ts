@@ -150,7 +150,7 @@ describe('Recruitment', () => {
       aggregate.startDateTime = StartDateTime.from(
         dayjs('2024-09-14').toDate(),
       );
-      const now = dayjs('2024-09-11').toISOString();
+      const now = dayjs('2024-09-10 23:59:59').toISOString();
       const actual = aggregate.canApprovedDuaring(now);
       expect(actual).toBeTruthy();
     });
