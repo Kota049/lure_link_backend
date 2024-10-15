@@ -16,7 +16,12 @@ import {
 } from './value-objects';
 import dayjs from 'src/lib/dayjs';
 import { RecruitmentUnprocessableEntityException } from './exceptions';
-import { INVALID_END_DATE, INVALID_APPLYING_END_DATE } from 'common';
+import {
+  INVALID_END_DATE,
+  INVALID_APPLYING_END_DATE,
+  ALREADY_APPROVED_APPLYING,
+  INVALID_APPROVE_DUARING,
+} from 'common';
 import { ApplyingEndDateTime } from './value-objects/applying-end-date-time';
 import { ApprovedApplyingEvent } from './events/apploved-applying.event';
 
@@ -83,10 +88,14 @@ export class RecruitmentAggregate extends AggregateRoot {
 
   apploveApplying(props: ApprovedApplyingEvent) {
     if (!this.canApprovedDuaring(props.currentDate)) {
-      throw new Error('');
+      throw new RecruitmentUnprocessableEntityException(
+        INVALID_APPROVE_DUARING,
+      );
     }
     if (this.determinedApplying.find((id) => id.value === props.applyingId)) {
-      throw new Error('');
+      throw new RecruitmentUnprocessableEntityException(
+        ALREADY_APPROVED_APPLYING,
+      );
     }
     const event = new ApprovedApplyingEvent(props);
     this.apply(event);
