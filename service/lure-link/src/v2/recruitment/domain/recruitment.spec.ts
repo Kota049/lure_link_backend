@@ -131,8 +131,7 @@ describe('Recruitment', () => {
       it('invalid duaring', () => {
         const aggregate = RecruitmentAggregate.create(validProps);
         props.recruitmentId = aggregate.recruitmentId.value;
-        props.currentDate = dayjs('2024-10-09').toISOString();
-        aggregate.apploveApplying(props);
+        props.currentDate = dayjs('2024-10-09 01:00:00').toISOString();
         expect(() => aggregate.apploveApplying(props)).toThrow(Error);
       });
     });

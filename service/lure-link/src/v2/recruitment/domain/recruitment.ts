@@ -82,6 +82,9 @@ export class RecruitmentAggregate extends AggregateRoot {
   }
 
   apploveApplying(props: ApprovedApplyingEvent) {
+    if (!this.canApprovedDuaring(props.currentDate)) {
+      throw new Error('');
+    }
     const event = new ApprovedApplyingEvent(props);
     this.apply(event);
   }
