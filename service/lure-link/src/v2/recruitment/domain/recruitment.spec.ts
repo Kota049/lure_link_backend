@@ -142,5 +142,17 @@ describe('Recruitment', () => {
       const actual = aggregate.canApprovedDuaring(now);
       expect(actual).toBeFalsy();
     });
+    it('申し込み締め切り-釣行開始日までの期間が2日以上の場合、申し込み終了から1日の間はtrueになる', () => {
+      const aggregate = RecruitmentAggregate.create(validProps);
+      aggregate.applyingEndDateTime = ApplyingEndDateTime.from(
+        dayjs('2024-09-10').toDate(),
+      );
+      aggregate.startDateTime = StartDateTime.from(
+        dayjs('2024-09-11').toDate(),
+      );
+      const now = dayjs('2024-09-11').toISOString();
+      const actual = aggregate.canApprovedDuaring(now);
+      expect(actual).toBeTruthy();
+    });
   });
 });
