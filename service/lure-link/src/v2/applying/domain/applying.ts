@@ -5,8 +5,11 @@ import {
   RecruitmentId,
   UserId,
 } from 'src/v2/recruitment/domain/value-objects';
-import { IsDetermined } from './value-objects';
-import { determinedPickUpOptionNumber } from './value-objects/determined-pick-up-option-number';
+import {
+  DeterminedPickUpDateTime,
+  DeterminedPickUpOptionNumber,
+  IsDetermined,
+} from './value-objects';
 
 export class ApplyingAggregate extends AggregateRoot {
   applyingId: ApplyingId;
@@ -16,7 +19,8 @@ export class ApplyingAggregate extends AggregateRoot {
   secondPickUpOption: Place | undefined;
   thirdPickUpOption: Place | undefined;
   isDetermine: IsDetermined;
-  determinedPickUpOptionNumber: determinedPickUpOptionNumber | undefined;
+  determinedPickUpOptionNumber: DeterminedPickUpOptionNumber | undefined;
+  determinedPickUpDateTime: DeterminedPickUpDateTime | undefined;
   constructor(id: string) {
     super();
     this.recruitmentId = ApplyingId.from(id);
