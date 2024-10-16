@@ -1,12 +1,28 @@
 import { AggregateRoot } from '@nestjs/cqrs';
+import {
+  ApplyingId,
+  Place,
+  RecruitmentId,
+  UserId,
+} from 'src/v2/recruitment/domain/value-objects';
+import { IsDetermined } from './value-objects';
+import { determinedPickUpOptionNumber } from './value-objects/determined-pick-up-option-number';
 
 export class ApplyingAggregate extends AggregateRoot {
-  id: string;
+  applyingId: ApplyingId;
+  recruitmentId: RecruitmentId;
+  userId: UserId;
+  firstPickUpOption: Place;
+  secondPickUpOption: Place | undefined;
+  thirdPickUpOption: Place | undefined;
+  isDetermine: IsDetermined;
+  determinedPickUpOptionNumber: determinedPickUpOptionNumber | undefined;
   constructor(id: string) {
     super();
+    this.recruitmentId = ApplyingId.from(id);
   }
   getStreamId(): string {
-    return `Recruitment-${this.id}`;
+    return `Recruitment-${this.recruitmentId.value}`;
   }
 
   create(event: any) {
