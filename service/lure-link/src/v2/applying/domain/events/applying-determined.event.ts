@@ -1,11 +1,13 @@
 import { IEvent } from '@nestjs/cqrs';
 import { DomainEvent } from '../../../common/event-type-decorator';
-@DomainEvent('RecruitmentCreatedEvent')
-export class ApprovedApplyingEvent implements IEvent {
-  constructor(props: ApprovedApplyingEvent) {
+@DomainEvent('ApplyingDeterminedEvent')
+export class ApplyingDeterminedEvent implements IEvent {
+  constructor(props: ApplyingDeterminedEvent) {
     Object.assign(this, props);
   }
-  recruitmentId: string;
   applyingId: string;
+  recruitmentId: string;
+  selectPickUpOptionNumber: number;
+  selectPickUpDateTime: string;
   currentDate: string;
 }
