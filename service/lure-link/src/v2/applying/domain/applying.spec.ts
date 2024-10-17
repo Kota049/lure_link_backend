@@ -157,6 +157,13 @@ describe('Recruitment', () => {
           aggregate.determinePickUp(applyingDeterminedProps),
         ).toThrow(ApplyingUnprocessableEntityException);
       });
+      it('occurs error if already determined', () => {
+        const aggregate = ApplyingAggregate.create(validProps);
+        aggregate.isDetermined = IsDetermined.from(true);
+        expect(() =>
+          aggregate.determinePickUp(applyingDeterminedProps),
+        ).toThrow(ApplyingUnprocessableEntityException);
+      });
     });
   });
 });
