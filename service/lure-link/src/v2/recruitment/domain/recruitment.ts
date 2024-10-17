@@ -126,6 +126,7 @@ export class RecruitmentAggregate extends AggregateRoot {
   }
 
   onRecruitmentCreatedEvent(event: RecruitmentCreatedEvent) {
+    this.recruitmentId = RecruitmentId.from(event.recruitmentId);
     this.ownerId = UserId.from(event.ownerId);
     this.destination = new Place({
       prefecture: Prefecture.from(event.destination.prefecture),
