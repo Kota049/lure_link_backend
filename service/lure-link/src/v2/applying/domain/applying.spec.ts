@@ -83,6 +83,11 @@ describe('Recruitment', () => {
         expect(actual.determinedPickUpOptionNumber).toEqual(undefined);
         expect(actual.determinedPickUpDateTime).toEqual(undefined);
       });
+      it('implements undefined when third selete is undefined', () => {
+        validProps.thirdPickUpOption = undefined;
+        const actual = ApplyingAggregate.create(validProps);
+        expect(actual.thirdPickUpOption).toEqual(undefined);
+      });
     });
     describe('invalid', () => {
       it('occurs error if second selected and third is not selected', () => {

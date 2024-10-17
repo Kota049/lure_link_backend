@@ -10,7 +10,7 @@ export class ApplyingCreatedEvent implements IEvent {
   recruitmentId: string;
   userId: string;
   firstPickUpOption: Place;
-  secondPickUpOption: Place | undefined;
-  thirdPickUpOption: Place | undefined;
+  secondPickUpOption?: Place | undefined;
+  thirdPickUpOption?: Place | undefined;
   currentDate: string;
 }
