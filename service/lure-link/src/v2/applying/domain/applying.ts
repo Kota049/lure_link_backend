@@ -73,6 +73,11 @@ export class ApplyingAggregate extends AggregateRoot {
   }
 
   private validateDeterminePickUp(props: ApplyingDeterminedEvent): void {
+    if (this.isDetermined.value === true) {
+      throw new ApplyingUnprocessableEntityException(
+        'すでに決定された申し込みです',
+      );
+    }
     if (
       props.selectPickUpOptionNumber === 2 &&
       this.secondPickUpOption === undefined
