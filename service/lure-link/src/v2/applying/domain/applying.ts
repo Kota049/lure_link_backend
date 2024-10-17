@@ -67,6 +67,12 @@ export class ApplyingAggregate extends AggregateRoot {
   }
 
   determinePickUp(props: ApplyingDeterminedEvent): void {
+    this.validateDeterminePickUp(props);
+    const event = new ApplyingDeterminedEvent(props);
+    this.apply(event);
+  }
+
+  private validateDeterminePickUp(props: ApplyingDeterminedEvent): void {
     if (
       props.selectPickUpOptionNumber === 2 &&
       this.secondPickUpOption === undefined
@@ -83,8 +89,6 @@ export class ApplyingAggregate extends AggregateRoot {
         INVALID_DETERMINED_PICK_UP_OPTION,
       );
     }
-    const event = new ApplyingDeterminedEvent(props);
-    this.apply(event);
   }
 
   restitute(event: any) {
