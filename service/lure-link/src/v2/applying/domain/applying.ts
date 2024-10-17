@@ -16,6 +16,7 @@ import {
 import { ApplyingCreatedEvent } from './events/applying-created.event';
 import { ApplyingUnprocessableEntityException } from './exceptions';
 import {
+  ALREADY_DETERMINED_APPLYING,
   INVALID_DETERMINED_PICK_UP_OPTION,
   INVALID_PICK_UP_OPTION_COMBINATION,
 } from 'common';
@@ -75,7 +76,7 @@ export class ApplyingAggregate extends AggregateRoot {
   private validateDeterminePickUp(props: ApplyingDeterminedEvent): void {
     if (this.isDetermined.value === true) {
       throw new ApplyingUnprocessableEntityException(
-        'すでに決定された申し込みです',
+        ALREADY_DETERMINED_APPLYING,
       );
     }
     if (

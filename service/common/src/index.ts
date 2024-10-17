@@ -9,3 +9,4 @@ export const INVALID_PICK_UP_OPTION_COMBINATION =
   "集合場所の第2候補が指定されていないの場合に、第3が指定されています";
 export const INVALID_DETERMINED_PICK_UP_OPTION =
   "設定されていない集合場所候補ので選択はできません";
+export const ALREADY_DETERMINED_APPLYING = "すでに決定された申し込みです";
