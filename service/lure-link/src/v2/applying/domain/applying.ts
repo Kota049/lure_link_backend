@@ -16,6 +16,8 @@ import {
 import { ApplyingCreatedEvent } from './events/applying-created.event';
 import { ApplyingUnprocessableEntityException } from './exceptions';
 import { INVALID_PICK_UP_OPTION_COMBINATION } from 'common';
+import { ApplyingDeterminedEvent } from './events/applying-determined.event';
+import dayjs from 'src/lib/dayjs';
 
 export class ApplyingAggregate extends AggregateRoot {
   applyingId: ApplyingId;
@@ -61,8 +63,9 @@ export class ApplyingAggregate extends AggregateRoot {
     // キャンセルしたときに、支払いをどうするか決める
   }
 
-  determinePickUp(event: any) {
-    // ピックアップ場所と時間を指定して、ステータスを決定する
+  determinePickUp(props: ApplyingDeterminedEvent): void {
+    const event = new ApplyingDeterminedEvent(props);
+    this.apply(event);
   }
 
   restitute(event: any) {
@@ -96,5 +99,15 @@ export class ApplyingAggregate extends AggregateRoot {
       });
     }
     this.isDetermined = IsDetermined.from(false);
+  }
+
+  private onApplyingDeterminedEvent(event: ApplyingDeterminedEvent): void {
+    this.isDetermined = IsDetermined.from(true);
+    this.determinedPickUpOptionNumber = DeterminedPickUpOptionNumber.from(
+      event.selectPickUpOptionNumber,
+    );
+    this.determinedPickUpDateTime = DeterminedPickUpDateTime.from(
+      dayjs(event.selectPickUpDateTime).toDate(),
+    );
   }
 }
