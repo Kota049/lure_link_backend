@@ -148,6 +148,15 @@ describe('Recruitment', () => {
           aggregate.determinePickUp(applyingDeterminedProps),
         ).toThrow(ApplyingUnprocessableEntityException);
       });
+      it('occurs error when selected option3 if option 3 is undefined', () => {
+        validProps.secondPickUpOption = undefined;
+        validProps.thirdPickUpOption = undefined;
+        const aggregate = ApplyingAggregate.create(validProps);
+        applyingDeterminedProps.selectPickUpOptionNumber = 3;
+        expect(() =>
+          aggregate.determinePickUp(applyingDeterminedProps),
+        ).toThrow(ApplyingUnprocessableEntityException);
+      });
     });
   });
 });
