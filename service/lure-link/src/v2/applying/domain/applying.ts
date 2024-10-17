@@ -1,7 +1,10 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import {
+  Address,
   ApplyingId,
+  Description,
   Place,
+  Prefecture,
   RecruitmentId,
   UserId,
 } from 'src/v2/recruitment/domain/value-objects';
@@ -33,10 +36,14 @@ export class ApplyingAggregate extends AggregateRoot {
   static create(
     props: Omit<ApplyingCreatedEvent, 'applyingId'>,
   ): ApplyingAggregate {
-    // 作成
-    // 基本的に全部受け取って、全部埋める
-    // this.apply(props);
-    throw new Error('');
+    const applyingId = ApplyingId.generate().value;
+    const aggregate = new ApplyingAggregate(applyingId);
+    const event = new ApplyingCreatedEvent({
+      applyingId,
+      ...props,
+    });
+    aggregate.apply(event);
+    return aggregate;
   }
 
   cancel(event: any) {
@@ -53,5 +60,29 @@ export class ApplyingAggregate extends AggregateRoot {
   }
   fix(event: any) {
     // 金額を確定する
+  }
+
+  private onApplyingCreatedEvent(event: ApplyingCreatedEvent): void {
+    this.applyingId = ApplyingId.from(event.applyingId);
+    this.recruitmentId = RecruitmentId.from(event.recruitmentId);
+    this.userId = UserId.from(event.userId);
+    this.firstPickUpOption = new Place({
+      prefecture: Prefecture.from(event.firstPickUpOption.prefecture),
+      address: Address.from(event.firstPickUpOption.address),
+      description: Description.from(event.firstPickUpOption.description),
+    });
+    this.secondPickUpOption = new Place({
+      prefecture: Prefecture.from(event.secondPickUpOption.prefecture),
+      address: Address.from(event.secondPickUpOption.address),
+      description: Description.from(event.secondPickUpOption.description),
+    });
+    this.thirdPickUpOption = new Place({
+      prefecture: Prefecture.from(event.thirdPickUpOption.prefecture),
+      address: Address.from(event.thirdPickUpOption.address),
+      description: Description.from(event.thirdPickUpOption.description),
+    });
+    this.isDetermined = IsDetermined.from(false);
+    this.determinedPickUpDateTime = undefined;
+    this.determinedPickUpOptionNumber = undefined;
   }
 }
