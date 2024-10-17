@@ -14,6 +14,7 @@ import {
   IsDetermined,
 } from './value-objects';
 import { ApplyingCreatedEvent } from './events/applying-created.event';
+import { ApplyingUnprocessableEntityException } from './exceptions';
 
 export class ApplyingAggregate extends AggregateRoot {
   applyingId: ApplyingId;
@@ -36,6 +37,14 @@ export class ApplyingAggregate extends AggregateRoot {
   static create(
     props: Omit<ApplyingCreatedEvent, 'applyingId'>,
   ): ApplyingAggregate {
+    if (
+      props.secondPickUpOption === undefined &&
+      props.thirdPickUpOption !== undefined
+    ) {
+      throw new ApplyingUnprocessableEntityException(
+        '集合場所の第２候補が指定されていないの場合に、第３が指定されています',
+      );
+    }
     const applyingId = ApplyingId.generate().value;
     const aggregate = new ApplyingAggregate(applyingId);
     const event = new ApplyingCreatedEvent({
