@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { ValueObject } from '../../..//common/value-object.interface';
 
 import dayjs from 'src/lib/dayjs';
-import { ApplyingStatusUnprocessableEntityException } from '../exceptions';
+import { ApplyingUnprocessableEntityException } from '../exceptions';
 
 export const DeterminedPickUpDateTimeSchema = z.date();
 export class DeterminedPickUpDateTime extends ValueObject<string, Date> {
@@ -11,7 +11,7 @@ export class DeterminedPickUpDateTime extends ValueObject<string, Date> {
       const res = DeterminedPickUpDateTimeSchema.parse(value);
       return dayjs(res).toISOString();
     } catch (error) {
-      throw new ApplyingStatusUnprocessableEntityException(
+      throw new ApplyingUnprocessableEntityException(
         `PickUpDateTime : : ${error}`,
       );
     }

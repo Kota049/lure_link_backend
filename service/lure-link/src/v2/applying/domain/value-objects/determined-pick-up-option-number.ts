@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { ValueObject } from '../../../common/value-object.interface';
-import { ApplyingStatusUnprocessableEntityException } from '../exceptions';
+import { ApplyingUnprocessableEntityException } from '../exceptions';
 
 export const DeterminedPickUpOptionNumberSchema = z
   .number()
@@ -15,7 +15,7 @@ export class DeterminedPickUpOptionNumber extends ValueObject<number, number> {
     try {
       return DeterminedPickUpOptionNumberSchema.parse(value);
     } catch (error) {
-      throw new ApplyingStatusUnprocessableEntityException(
+      throw new ApplyingUnprocessableEntityException(
         `determinedPickUpOptionNumber : : ${error}`,
       );
     }

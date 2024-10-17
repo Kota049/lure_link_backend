@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { ValueObject } from '../../../common/value-object.interface';
-import { ApplyingStatusUnprocessableEntityException } from '../exceptions';
+import { ApplyingUnprocessableEntityException } from '../exceptions';
 
 export const IsDeterminedSchema = z.boolean();
 export class IsDetermined extends ValueObject<boolean, boolean> {
@@ -11,7 +11,7 @@ export class IsDetermined extends ValueObject<boolean, boolean> {
     try {
       return IsDeterminedSchema.parse(value);
     } catch (error) {
-      throw new ApplyingStatusUnprocessableEntityException(
+      throw new ApplyingUnprocessableEntityException(
         `IsDetermined : : ${error}`,
       );
     }

@@ -11,6 +11,7 @@ import { ApplyingAggregate } from './applying';
 import { ApplyingCreatedEvent } from './events/applying-created.event';
 import { IsDetermined } from './value-objects';
 import dayjs from 'src/lib/dayjs';
+import { ApplyingUnprocessableEntityException } from './exceptions';
 
 describe('Recruitment', () => {
   let validProps: Omit<ApplyingCreatedEvent, 'applyingId'>;
@@ -83,32 +84,13 @@ describe('Recruitment', () => {
         expect(actual.determinedPickUpDateTime).toEqual(undefined);
       });
     });
-    // describe('invalid', () => {
-    //   it('start_date is faster than created_at', () => {
-    //     validProps.created_at = dayjs('2024-10-11').toISOString();
-    //     expect(() => ApplyingAggregate.create(validProps)).toThrow(
-    //       RecruitmentUnprocessableEntityException,
-    //     );
-    //   });
-    //   it('start_date is after than end_date', () => {
-    //     validProps.startDate = dayjs('2024-10-12').toISOString();
-    //     expect(() => ApplyingAggregate.create(validProps)).toThrow(
-    //       RecruitmentUnprocessableEntityException,
-    //     );
-    //   });
-    //   it('applying_end_date is after than start_date', () => {
-    //     validProps.applyingEndDateTime = dayjs('2024-10-11').toISOString();
-    //     expect(() => ApplyingAggregate.create(validProps)).toThrow(
-    //       RecruitmentUnprocessableEntityException,
-    //     );
-    //   });
-    //   it('applying_end_date is bedore than created_at', () => {
-    //     validProps.created_at = dayjs('2024-09-10').toISOString();
-    //     validProps.applyingEndDateTime = dayjs('2024-09-09').toISOString();
-    //     expect(() => ApplyingAggregate.create(validProps)).toThrow(
-    //       RecruitmentUnprocessableEntityException,
-    //     );
-    //   });
-    // });
+    describe('invalid', () => {
+      it('occurs error if second selected and third is not selected', () => {
+        validProps.secondPickUpOption = undefined;
+        expect(() => ApplyingAggregate.create(validProps)).toThrow(
+          ApplyingUnprocessableEntityException,
+        );
+      });
+    });
   });
 });
