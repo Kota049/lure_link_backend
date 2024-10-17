@@ -21,11 +21,11 @@ export class ApplyingAggregate extends AggregateRoot {
   recruitmentId: RecruitmentId;
   userId: UserId;
   firstPickUpOption: Place;
-  secondPickUpOption: Place | undefined;
-  thirdPickUpOption: Place | undefined;
+  secondPickUpOption?: Place = undefined;
+  thirdPickUpOption?: Place = undefined;
   isDetermined: IsDetermined;
-  determinedPickUpOptionNumber: DeterminedPickUpOptionNumber | undefined;
-  determinedPickUpDateTime: DeterminedPickUpDateTime | undefined;
+  determinedPickUpOptionNumber?: DeterminedPickUpOptionNumber = undefined;
+  determinedPickUpDateTime?: DeterminedPickUpDateTime = undefined;
   constructor(id: string) {
     super();
     this.recruitmentId = ApplyingId.from(id);
@@ -80,18 +80,14 @@ export class ApplyingAggregate extends AggregateRoot {
       address: Address.from(event.firstPickUpOption.address),
       description: Description.from(event.firstPickUpOption.description),
     });
-    if (event.secondPickUpOption === undefined) {
-      this.secondPickUpOption = undefined;
-    } else {
+    if (event.secondPickUpOption !== undefined) {
       this.secondPickUpOption = new Place({
         prefecture: Prefecture.from(event.secondPickUpOption.prefecture),
         address: Address.from(event.secondPickUpOption.address),
         description: Description.from(event.secondPickUpOption.description),
       });
     }
-    if (event.thirdPickUpOption === undefined) {
-      this.thirdPickUpOption = undefined;
-    } else {
+    if (event.thirdPickUpOption !== undefined) {
       this.thirdPickUpOption = new Place({
         prefecture: Prefecture.from(event.thirdPickUpOption.prefecture),
         address: Address.from(event.thirdPickUpOption.address),
@@ -99,7 +95,5 @@ export class ApplyingAggregate extends AggregateRoot {
       });
     }
     this.isDetermined = IsDetermined.from(false);
-    this.determinedPickUpDateTime = undefined;
-    this.determinedPickUpOptionNumber = undefined;
   }
 }
