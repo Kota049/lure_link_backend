@@ -75,6 +75,14 @@ export class ApplyingAggregate extends AggregateRoot {
         INVALID_DETERMINED_PICK_UP_OPTION,
       );
     }
+    if (
+      props.selectPickUpOptionNumber === 3 &&
+      this.thirdPickUpOption === undefined
+    ) {
+      throw new ApplyingUnprocessableEntityException(
+        INVALID_DETERMINED_PICK_UP_OPTION,
+      );
+    }
     const event = new ApplyingDeterminedEvent(props);
     this.apply(event);
   }
