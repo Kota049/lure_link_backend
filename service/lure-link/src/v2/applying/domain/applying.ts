@@ -85,11 +85,15 @@ export class ApplyingAggregate extends AggregateRoot {
       address: Address.from(event.secondPickUpOption.address),
       description: Description.from(event.secondPickUpOption.description),
     });
-    this.thirdPickUpOption = new Place({
-      prefecture: Prefecture.from(event.thirdPickUpOption.prefecture),
-      address: Address.from(event.thirdPickUpOption.address),
-      description: Description.from(event.thirdPickUpOption.description),
-    });
+    if (event.thirdPickUpOption === undefined) {
+      this.thirdPickUpOption = undefined;
+    } else {
+      this.thirdPickUpOption = new Place({
+        prefecture: Prefecture.from(event.thirdPickUpOption.prefecture),
+        address: Address.from(event.thirdPickUpOption.address),
+        description: Description.from(event.thirdPickUpOption.description),
+      });
+    }
     this.isDetermined = IsDetermined.from(false);
     this.determinedPickUpDateTime = undefined;
     this.determinedPickUpOptionNumber = undefined;
