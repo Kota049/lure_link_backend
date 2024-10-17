@@ -138,5 +138,16 @@ describe('Recruitment', () => {
         );
       });
     });
+    describe('invalid', () => {
+      it('occurs error when selected option2 if option 2 is undefined', () => {
+        validProps.secondPickUpOption = undefined;
+        validProps.thirdPickUpOption = undefined;
+        const aggregate = ApplyingAggregate.create(validProps);
+        applyingDeterminedProps.selectPickUpOptionNumber = 2;
+        expect(() =>
+          aggregate.determinePickUp(applyingDeterminedProps),
+        ).toThrow(ApplyingUnprocessableEntityException);
+      });
+    });
   });
 });
