@@ -64,6 +64,14 @@ export class ApplyingAggregate extends AggregateRoot {
   }
 
   determinePickUp(props: ApplyingDeterminedEvent): void {
+    if (
+      props.selectPickUpOptionNumber === 2 &&
+      this.secondPickUpOption === undefined
+    ) {
+      throw new ApplyingUnprocessableEntityException(
+        '第2候補は設定されていないので選択できません',
+      );
+    }
     const event = new ApplyingDeterminedEvent(props);
     this.apply(event);
   }
