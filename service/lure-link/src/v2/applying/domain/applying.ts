@@ -10,6 +10,7 @@ import {
   DeterminedPickUpOptionNumber,
   IsDetermined,
 } from './value-objects';
+import { ApplyingCreatedEvent } from './events/applying-created.event';
 
 export class ApplyingAggregate extends AggregateRoot {
   applyingId: ApplyingId;
@@ -18,7 +19,7 @@ export class ApplyingAggregate extends AggregateRoot {
   firstPickUpOption: Place;
   secondPickUpOption: Place | undefined;
   thirdPickUpOption: Place | undefined;
-  isDetermine: IsDetermined;
+  isDetermined: IsDetermined;
   determinedPickUpOptionNumber: DeterminedPickUpOptionNumber | undefined;
   determinedPickUpDateTime: DeterminedPickUpDateTime | undefined;
   constructor(id: string) {
@@ -29,10 +30,13 @@ export class ApplyingAggregate extends AggregateRoot {
     return `Recruitment-${this.recruitmentId.value}`;
   }
 
-  create(event: any) {
+  static create(
+    props: Omit<ApplyingCreatedEvent, 'applyingId'>,
+  ): ApplyingAggregate {
     // 作成
     // 基本的に全部受け取って、全部埋める
-    this.apply(event);
+    // this.apply(props);
+    throw new Error('');
   }
 
   cancel(event: any) {
