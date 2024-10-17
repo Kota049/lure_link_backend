@@ -15,7 +15,10 @@ import {
 } from './value-objects';
 import { ApplyingCreatedEvent } from './events/applying-created.event';
 import { ApplyingUnprocessableEntityException } from './exceptions';
-import { INVALID_PICK_UP_OPTION_COMBINATION } from 'common';
+import {
+  INVALID_DETERMINED_PICK_UP_OPTION,
+  INVALID_PICK_UP_OPTION_COMBINATION,
+} from 'common';
 import { ApplyingDeterminedEvent } from './events/applying-determined.event';
 import dayjs from 'src/lib/dayjs';
 
@@ -69,7 +72,7 @@ export class ApplyingAggregate extends AggregateRoot {
       this.secondPickUpOption === undefined
     ) {
       throw new ApplyingUnprocessableEntityException(
-        '第2候補は設定されていないので選択できません',
+        INVALID_DETERMINED_PICK_UP_OPTION,
       );
     }
     const event = new ApplyingDeterminedEvent(props);

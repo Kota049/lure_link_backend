@@ -7,3 +7,5 @@ export const ALREADY_APPROVED_APPLYING = "すでに承認された申し込み�
 export const OVER_MAX_PARTICIPANT_COUNT = "最大参加人数をオーバーしています";
 export const INVALID_PICK_UP_OPTION_COMBINATION =
   "集合場所の第2候補が指定されていないの場合に、第3が指定されています";
+export const INVALID_DETERMINED_PICK_UP_OPTION =
+  "設定されていない集合場所候補ので選択はできません";
