@@ -9,9 +9,14 @@ import {
 } from 'src/v2/recruitment/domain/value-objects';
 import { ApplyingAggregate } from './applying';
 import { ApplyingCreatedEvent } from './events/applying-created.event';
-import { IsDetermined } from './value-objects';
+import {
+  DeterminedPickUpDateTime,
+  DeterminedPickUpOptionNumber,
+  IsDetermined,
+} from './value-objects';
 import dayjs from 'src/lib/dayjs';
 import { ApplyingUnprocessableEntityException } from './exceptions';
+import { ApplyingDeterminedEvent } from './events/applying-determined.event';
 
 describe('Recruitment', () => {
   let validProps: Omit<ApplyingCreatedEvent, 'applyingId'>;
@@ -100,6 +105,36 @@ describe('Recruitment', () => {
         validProps.secondPickUpOption = undefined;
         expect(() => ApplyingAggregate.create(validProps)).toThrow(
           ApplyingUnprocessableEntityException,
+        );
+      });
+    });
+  });
+  describe('determinePickUp', () => {
+    let applyingDeterminedProps: ApplyingDeterminedEvent;
+    beforeEach(() => {
+      applyingDeterminedProps = {
+        applyingId: 'not implement',
+        recruitmentId: '01JA071A96K19YQJVKV5FDBW6X',
+        selectPickUpOptionNumber: 1,
+        selectPickUpDateTime: dayjs('2024-10-20').toISOString(),
+        currentDate: dayjs('2024-10-02').toISOString(),
+      };
+    });
+    describe('valid', () => {
+      it('valid case', () => {
+        const aggregate = ApplyingAggregate.create(validProps);
+        applyingDeterminedProps.applyingId = aggregate.applyingId.value;
+        aggregate.determinePickUp(applyingDeterminedProps);
+        expect(aggregate.isDetermined).toEqual(IsDetermined.from(true));
+        expect(aggregate.determinedPickUpOptionNumber).toEqual(
+          DeterminedPickUpOptionNumber.from(
+            applyingDeterminedProps.selectPickUpOptionNumber,
+          ),
+        );
+        expect(aggregate.determinedPickUpDateTime).toEqual(
+          DeterminedPickUpDateTime.from(
+            dayjs(applyingDeterminedProps.selectPickUpDateTime).toDate(),
+          ),
         );
       });
     });
