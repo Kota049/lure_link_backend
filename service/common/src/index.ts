@@ -5,3 +5,5 @@ export const INVALID_APPLYING_END_DATE =
 export const INVALID_APPROVE_DUARING = "承認可能期間を過ぎています";
 export const ALREADY_APPROVED_APPLYING = "すでに承認された申し込みです";
 export const OVER_MAX_PARTICIPANT_COUNT = "最大参加人数をオーバーしています";
+export const INVALID_PICK_UP_OPTION_COMBINATION =
+  "集合場所の第2候補が指定されていないの場合に、第3が指定されています";

@@ -15,6 +15,7 @@ import {
 } from './value-objects';
 import { ApplyingCreatedEvent } from './events/applying-created.event';
 import { ApplyingUnprocessableEntityException } from './exceptions';
+import { INVALID_PICK_UP_OPTION_COMBINATION } from 'common';
 
 export class ApplyingAggregate extends AggregateRoot {
   applyingId: ApplyingId;
@@ -42,7 +43,7 @@ export class ApplyingAggregate extends AggregateRoot {
       props.thirdPickUpOption !== undefined
     ) {
       throw new ApplyingUnprocessableEntityException(
-        '集合場所の第２候補が指定されていないの場合に、第３が指定されています',
+        INVALID_PICK_UP_OPTION_COMBINATION,
       );
     }
     const applyingId = ApplyingId.generate().value;
