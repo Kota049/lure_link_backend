@@ -5,7 +5,11 @@ import {
 } from '../../domain/recruitment.repository.interface';
 import { Inject } from '@nestjs/common';
 import { RecruitmentAggregate } from '../../domain/recruitment';
-import { Place } from '../../domain/events/recruitment-created-event';
+import {
+  Place,
+  RecruitmentCreatedEvent,
+} from '../../domain/events/recruitment-created-event';
+import dayjs from 'src/lib/dayjs';
 
 export class CreateRecruitmentCommand implements ICommand {
   ownerId: string;
@@ -29,11 +33,13 @@ export class CreateRecruitmentCommandHandler
   ) {}
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async execute(command: CreateRecruitmentCommand): Promise<string> {
-    const id = 'hogehoge2';
-    const r = new RecruitmentAggregate(id);
-    // const event = new RecruitmentCreatedEvent();
-    // r.create(event);
-    // await this.repo.save(r);
-    return 'id';
+    const createdAt = dayjs().toISOString();
+    const props: Omit<RecruitmentCreatedEvent, 'recruitmentId'> = {
+      ...command,
+      created_at: createdAt,
+    };
+    const aggregate = RecruitmentAggregate.create(props);
+    await this.repo.save(aggregate);
+    return aggregate.recruitmentId.value;
   }
 }
