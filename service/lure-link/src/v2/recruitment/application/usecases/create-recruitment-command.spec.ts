@@ -5,11 +5,7 @@ import {
 } from '../../domain/recruitment.repository.interface';
 import { createMock } from '@golevelup/ts-jest';
 import dayjs from 'src/lib/dayjs';
-import {
-  CreateRecruitmentCommand,
-  CreateRecruitmentCommandHandler,
-} from './create-recruitment-command';
-import { CommandHandler } from '@nestjs/cqrs';
+import { CreateRecruitmentCommandHandler } from './create-recruitment-command';
 
 describe('CreateRecruitmentCommnadHandler', () => {
   let validCommand;

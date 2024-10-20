@@ -31,7 +31,6 @@ export class CreateRecruitmentCommandHandler
     @Inject(RECRUITMENT_REPOSITORY_TOKEN)
     private readonly repo: IRecruitmentRepository,
   ) {}
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async execute(command: CreateRecruitmentCommand): Promise<string> {
     const createdAt = dayjs().toISOString();
     const props: Omit<RecruitmentCreatedEvent, 'recruitmentId'> = {
