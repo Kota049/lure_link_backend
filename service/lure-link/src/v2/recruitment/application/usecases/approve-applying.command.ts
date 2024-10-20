@@ -4,7 +4,6 @@ import {
   RECRUITMENT_REPOSITORY_TOKEN,
 } from '../../domain/recruitment.repository.interface';
 import { Inject } from '@nestjs/common';
-import { RecruitmentAggregate } from '../../domain/recruitment';
 import dayjs from 'src/lib/dayjs';
 
 export class ApproveAppyingCommand implements ICommand {
@@ -20,5 +19,11 @@ export class ApproveAppyingCommandHandler
     @Inject(RECRUITMENT_REPOSITORY_TOKEN)
     private readonly repo: IRecruitmentRepository,
   ) {}
-  async execute(command: ApproveAppyingCommand): Promise<string> {}
+  async execute(command: ApproveAppyingCommand): Promise<string> {
+    const currentDate = dayjs().toISOString();
+    const aggregate = await this.repo.getById(command.recruitmentId);
+    aggregate.apploveApplying({ ...command, currentDate });
+    await this.repo.save(aggregate);
+    return aggregate.recruitmentId.value;
+  }
 }

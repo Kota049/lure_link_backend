@@ -24,13 +24,13 @@ describe('ApproveAppyingCommnadHandler', () => {
       address: '川越市1-24-14',
       description: 'ファミリーマート〇〇店前です',
     },
-    endDate: dayjs('2024-10-11').toISOString(),
-    startDate: dayjs('2024-10-10').toISOString(),
-    applyingEndDateTime: dayjs('2024-10-09').toISOString(),
+    endDate: dayjs('2080-10-11').toISOString(),
+    startDate: dayjs('2080-10-10').toISOString(),
+    applyingEndDateTime: dayjs('2080-10-09').toISOString(),
     maxParticipant: 2,
     budget: 1000,
     description: 'サーフフィッシングです。ウェーダー持参でお願いします',
-    created_at: dayjs('2024-10-01').toISOString(),
+    created_at: dayjs('2080-10-01').toISOString(),
   });
   beforeEach(async () => {
     const module = await Test.createTestingModule({
