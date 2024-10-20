@@ -6,10 +6,11 @@ import {
 import { createMock } from '@golevelup/ts-jest';
 import dayjs from 'src/lib/dayjs';
 import { CreateRecruitmentCommandHandler } from './create-recruitment-command';
+import { CommandHandler } from '@nestjs/cqrs';
 
 describe('CreateRecruitmentCommnadHandler', () => {
   let validCommand;
-  let commnadHandler: CreateRecruitmentCommandHandler;
+  let commandHandler: CreateRecruitmentCommandHandler;
   const mock = createMock<IRecruitmentRepository>();
   beforeEach(async () => {
     const module = await Test.createTestingModule({
@@ -21,7 +22,7 @@ describe('CreateRecruitmentCommnadHandler', () => {
         CreateRecruitmentCommandHandler,
       ],
     }).compile();
-    commnadHandler = module.get<CreateRecruitmentCommandHandler>(
+    commandHandler = module.get<CreateRecruitmentCommandHandler>(
       CreateRecruitmentCommandHandler,
     );
     mock.save.mockResolvedValue();
@@ -48,8 +49,18 @@ describe('CreateRecruitmentCommnadHandler', () => {
 
   describe('valid repository', () => {
     it('valid case', async () => {
-      const actual = await commnadHandler.execute(validCommand);
+      const actual = await commandHandler.execute(validCommand);
       expect(actual).toEqual(expect.any(String));
+    });
+  });
+  describe('invalid repostory', () => {
+    it('occurs error if save failed', async () => {
+      const expectedErr = new Error('UT');
+      mock.save.mockReset();
+      mock.save.mockRejectedValue(expectedErr);
+      await expect(async () =>
+        commandHandler.execute(validCommand),
+      ).rejects.toThrow(Error);
     });
   });
 });
