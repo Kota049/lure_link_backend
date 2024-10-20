@@ -6,6 +6,7 @@ import { CreateRecruitmentCommandHandler } from './application/usecases/create-r
 import { UpdateRecruitmentCommandHandler } from './application/usecases/update-recruitment-command';
 import { CqrsModule } from '@nestjs/cqrs';
 import { UpsertRecruitmentProjectionUpdater } from './application/projection-updaters/upsert-recruitment';
+import { ApproveAppyingCommandHandler } from './application/usecases/approve-applying.command';
 
 @Module({
   imports: [CqrsModule],
@@ -18,6 +19,7 @@ import { UpsertRecruitmentProjectionUpdater } from './application/projection-upd
     CreateRecruitmentCommandHandler,
     UpdateRecruitmentCommandHandler,
     UpsertRecruitmentProjectionUpdater,
+    ApproveAppyingCommandHandler,
   ],
 })
 export class RecruitmentModule {}
