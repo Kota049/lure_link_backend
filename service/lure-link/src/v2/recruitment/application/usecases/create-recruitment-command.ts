@@ -5,9 +5,19 @@ import {
 } from '../../domain/recruitment.repository.interface';
 import { Inject } from '@nestjs/common';
 import { RecruitmentAggregate } from '../../domain/recruitment';
-import { RecruitmentCreatedEvent } from '../../domain/events/recruitment-created-event';
+import { Place } from '../../domain/events/recruitment-created-event';
 
-export class CreateRecruitmentCommand implements ICommand {}
+export class CreateRecruitmentCommand implements ICommand {
+  ownerId: string;
+  destination: Place;
+  depature: Place;
+  startDate: string;
+  endDate: string;
+  maxParticipant: number;
+  budget: number;
+  description: string;
+  applyingEndDateTime: string;
+}
 
 @CommandHandler(CreateRecruitmentCommand)
 export class CreateRecruitmentCommandHandler
