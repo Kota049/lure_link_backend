@@ -12,9 +12,7 @@ export class LinkApplyingToRecruitmentEventHandler
       recruitmentId: event.recruitmentId,
       applyingId: event.applyingId,
     } as ApproveAppyingCommand;
-    const res = await this.commandBus.execute<ApproveAppyingCommand, string>(
-      command,
-    );
+    await this.commandBus.execute<ApproveAppyingCommand, string>(command);
     return;
   }
 }
