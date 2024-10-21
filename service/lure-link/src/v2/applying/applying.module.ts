@@ -6,6 +6,7 @@ import {
   DetermineApplyingCommandHandler,
 } from './application';
 import { CqrsModule } from '@nestjs/cqrs';
+import { LinkApplyingToRecruitmentEventHandler } from './application/event-handlers/link-applying-to-recruitment.event.handler';
 
 @Module({
   imports: [CqrsModule],
@@ -17,6 +18,7 @@ import { CqrsModule } from '@nestjs/cqrs';
     },
     CreateApplyingCommandHandler,
     DetermineApplyingCommandHandler,
+    LinkApplyingToRecruitmentEventHandler,
   ],
 })
 export class ApplyingModule {}
