@@ -27,6 +27,9 @@ export class DetermineApplyingCommandHandler
   ) {}
   async execute(command: DetermineApplyingCommand): Promise<string> {
     const currentDate = dayjs().toISOString();
-    throw new Error();
+    const aggregate = await this.repo.getById(command.applyingId);
+    aggregate.determinePickUp({ ...command, currentDate });
+    await this.repo.save(aggregate);
+    return aggregate.applyingId.value;
   }
 }

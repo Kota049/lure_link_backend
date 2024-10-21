@@ -59,7 +59,7 @@ describe('DetermineApplyingCommnadHandler', () => {
   describe('valid repository', () => {
     it('valid case', async () => {
       const actual = await commandHandler.execute(validCommand);
-      expect(actual).toEqual(validAggregate.recruitmentId.value);
+      expect(actual).toEqual(validAggregate.applyingId.value);
     });
   });
   describe('invalid repostory', () => {
