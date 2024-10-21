@@ -1,7 +1,6 @@
 import { Test } from '@nestjs/testing';
 
 import { createMock } from '@golevelup/ts-jest';
-import dayjs from 'src/lib/dayjs';
 import { CreateApplyingCommandHandler } from './create-applying.command';
 import {
   APPLYING_REPOSITORY_TOKEN,
@@ -27,6 +26,7 @@ describe('CreateApplyingCommnadHandler', () => {
     );
     mock.save.mockResolvedValue();
     validCommand = {
+      recruitmentId: '01JA071A96K19YQJVKV5FDBW6Y',
       userId: '01JA071A96K19YQJVKV5FDBW6X',
       firstPickUpOption: {
         prefecture: '神奈川県',

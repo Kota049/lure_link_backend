@@ -7,6 +7,7 @@ import {
   APPLYING_REPOSITORY_TOKEN,
   IApplyingRepository,
 } from '../../domain/applying.repository';
+import { ApplyingAggregate } from '../../domain/applying';
 
 export class CreateApplyingCommand implements ICommand {
   recruitmentId: string;
@@ -26,6 +27,8 @@ export class CreateApplyingCommandHandler
   ) {}
   async execute(command: CreateApplyingCommand): Promise<string> {
     const currentDate = dayjs().toISOString();
-    throw new Error();
+    const aggregate = ApplyingAggregate.create({ ...command, currentDate });
+    await this.repo.save(aggregate);
+    return aggregate.applyingId.value;
   }
 }
