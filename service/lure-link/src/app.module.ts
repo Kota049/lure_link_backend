@@ -5,9 +5,10 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { CommonModule } from './v2/common/common.module';
 import { RecruitmentModule } from './v2/recruitment/recruitment.module';
 import { RecruitmentController } from './v2/recruitment/presentation/recruitment.controller';
+import { ApplyingModule } from './v2/applying/applying.module';
 
 @Module({
-  imports: [CqrsModule, CommonModule, RecruitmentModule],
+  imports: [CqrsModule, CommonModule, RecruitmentModule, ApplyingModule],
   controllers: [AppController, RecruitmentController],
   providers: [AppService],
 })
