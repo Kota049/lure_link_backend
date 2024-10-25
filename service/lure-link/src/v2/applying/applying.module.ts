@@ -7,10 +7,11 @@ import {
 } from './application';
 import { CqrsModule } from '@nestjs/cqrs';
 import { LinkApplyingToRecruitmentEventHandler } from './application/event-handlers/link-applying-to-recruitment.event.handler';
+import { ApplyingControllers } from './presentation/applying-controller';
 
 @Module({
   imports: [CqrsModule],
-  controllers: [],
+  controllers: [ApplyingControllers],
   providers: [
     {
       provide: APPLYING_REPOSITORY_TOKEN,
