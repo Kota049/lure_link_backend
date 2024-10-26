@@ -20,3 +20,44 @@ model Event {
   payload   Json
   createdAt DateTime @default(now())
 }
+
+model ApplyingProjectionUpdater{
+  id Int @id @default(autoincrement())
+  applyingId String @unique()
+  recruitmentId String 
+  userId String 
+  firstPickUpOptionPrefecture String
+  firstPickUpOptionAddress String
+  firstPickUpOptionDescription String
+  status String
+  secondPickUpOptionPrefecture String
+  secondPickUpOptionAddress String
+  secondPickUpOptionDescription String
+  thirdPickUpOptionPrefecture String
+  thirdPickUpOptionAddress String
+  thirdPickUpOptionDescription String
+  determinePickUpOption Int?
+  determinePickUpDateTime DateTime?
+  recruitment RecruitmentProjectionUpdater @relation(fields: [recruitmentId],references: [recruitmentId])
+@@unique([recruitmentId,userId])
+@@index([recruitmentId])
+}
+
+model RecruitmentProjectionUpdater{
+  id Int @id @default(autoincrement())
+  recruitmentId String @unique()
+  ownerId String
+  destinationPrefecture String
+  destinationAddress String
+  destinationDescription String
+  depaturePrefecture String
+  depatureAddress String
+  depatureDescription String
+  startDateTime DateTime
+  endDateTime DateTime
+  maxParticipant Int
+  budget Int
+  description String
+  applyingEndDateTime DateTime
+  applyingProjectionUpdater ApplyingProjectionUpdater[]
+}
