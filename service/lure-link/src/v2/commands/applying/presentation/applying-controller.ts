@@ -11,15 +11,17 @@ export class ApplyingControllers {
 
   @Post()
   async create(@Body() req: CreateApplyingCommand): Promise<string> {
+    const command = new CreateApplyingCommand(req);
     const res = await this.commandBus.execute<CreateApplyingCommand, string>(
-      req,
+      command,
     );
     return res;
   }
   @Post('determine')
   async determine(@Body() req: DetermineApplyingCommand): Promise<string> {
+    const command = new DetermineApplyingCommand(req);
     const res = await this.commandBus.execute<DetermineApplyingCommand, string>(
-      req,
+      command,
     );
     return res;
   }

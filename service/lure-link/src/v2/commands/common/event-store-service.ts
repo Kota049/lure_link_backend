@@ -27,7 +27,7 @@ export class EventStoreService {
     });
     return events.map((event) => {
       const EventClass = EventTypes.get(event.type);
-      return new EventClass(...Object.values(event.payload));
+      return new EventClass(event.payload as typeof EventClass);
     });
   }
 }

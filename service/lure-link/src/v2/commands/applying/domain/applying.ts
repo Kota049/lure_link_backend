@@ -36,10 +36,10 @@ export class ApplyingAggregate extends AggregateRoot {
   determinedPickUpDateTime?: DeterminedPickUpDateTime = undefined;
   constructor(id: string) {
     super();
-    this.recruitmentId = ApplyingId.from(id);
+    this.applyingId = ApplyingId.from(id);
   }
   getStreamId(): string {
-    return `Recruitment-${this.recruitmentId.value}`;
+    return `Applying-${this.applyingId.value}`;
   }
 
   static create(
