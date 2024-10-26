@@ -8,6 +8,9 @@ import {
 } from '../../domain/applying.repository';
 
 export class DetermineApplyingCommand implements ICommand {
+  constructor(props: DetermineApplyingCommand) {
+    Object.assign(this, props);
+  }
   applyingId: string;
   recruitmentId: string;
   selectPickUpOptionNumber: number;

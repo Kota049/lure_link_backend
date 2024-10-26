@@ -10,6 +10,10 @@ import {
 import { ApplyingAggregate } from '../../domain/applying';
 
 export class CreateApplyingCommand implements ICommand {
+  constructor(props: CreateApplyingCommand) {
+    Object.assign(this, props);
+  }
+
   recruitmentId: string;
   userId: string;
   firstPickUpOption: Place;

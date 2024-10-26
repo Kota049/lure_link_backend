@@ -12,6 +12,9 @@ import {
 import dayjs from 'src/lib/dayjs';
 
 export class CreateRecruitmentCommand implements ICommand {
+  constructor(props: CreateRecruitmentCommand) {
+    Object.assign(this, props);
+  }
   ownerId: string;
   destination: Place;
   depature: Place;

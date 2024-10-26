@@ -7,6 +7,9 @@ import { Inject } from '@nestjs/common';
 import dayjs from 'src/lib/dayjs';
 
 export class ApproveAppyingCommand implements ICommand {
+  constructor(props: ApproveAppyingCommand) {
+    Object.assign(this, props);
+  }
   recruitmentId: string;
   applyingId: string;
 }

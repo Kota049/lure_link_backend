@@ -8,10 +8,10 @@ export class LinkApplyingToRecruitmentEventHandler
 {
   constructor(private readonly commandBus: CommandBus) {}
   async handle(event: ApplyingDeterminedEvent) {
-    const command = {
+    const command = new ApproveAppyingCommand({
       recruitmentId: event.recruitmentId,
       applyingId: event.applyingId,
-    } as ApproveAppyingCommand;
+    });
     await this.commandBus.execute<ApproveAppyingCommand, string>(command);
     return;
   }
