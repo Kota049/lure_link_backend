@@ -60,4 +60,5 @@ model RecruitmentProjectionUpdater{
   description String
   applyingEndDateTime DateTime
   applyingProjectionUpdater ApplyingProjectionUpdater[]
+  @@index([startDateTime(sort: Desc)])
 }
