@@ -7,8 +7,8 @@ import { UpdateRecruitmentCommandHandler } from './application/usecases/update-r
 import { CqrsModule } from '@nestjs/cqrs';
 import { UpsertRecruitmentProjectionUpdater } from './application/projection-updaters/upsert-recruitment';
 import { ApproveAppyingCommandHandler } from './application/usecases/approve-applying.command';
-import { CreateApplyingProjectoinUpdater } from '../applying/application/projection-updaters/create-applying.projection-updater';
 import { PRISMA_SERVICE_TOKEN, PrismaService } from '../common/prisma-service';
+import { CreateRecruitmentProjectoinUpdater } from './application/projection-updaters/create-recruitment.projection.updater';
 
 @Module({
   imports: [CqrsModule],
@@ -26,7 +26,7 @@ import { PRISMA_SERVICE_TOKEN, PrismaService } from '../common/prisma-service';
     UpdateRecruitmentCommandHandler,
     UpsertRecruitmentProjectionUpdater,
     ApproveAppyingCommandHandler,
-    CreateApplyingProjectoinUpdater,
+    CreateRecruitmentProjectoinUpdater,
   ],
 })
 export class RecruitmentModule {}

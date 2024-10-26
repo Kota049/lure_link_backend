@@ -5,6 +5,7 @@ import {
   PrismaService,
 } from 'src/v2/commands/common/prisma-service';
 import { RecruitmentCreatedEvent } from '../../domain/events/recruitment-created-event';
+import dayjs from 'src/lib/dayjs';
 
 @EventsHandler(RecruitmentCreatedEvent)
 export class CreateRecruitmentProjectoinUpdater
@@ -25,12 +26,12 @@ export class CreateRecruitmentProjectoinUpdater
         depaturePrefecture: event.depature.prefecture,
         depatureAddress: event.depature.address,
         depatureDescription: event.depature.description,
-        startDateTime: event.startDate,
-        endDateTime: event.endDate,
+        startDateTime: dayjs(event.startDate).toDate(),
+        endDateTime: dayjs(event.endDate).toDate(),
         maxParticipant: event.maxParticipant,
         budget: event.budget,
         description: event.description,
-        applyingEndDateTime: event.applyingEndDateTime,
+        applyingEndDateTime: dayjs(event.applyingEndDateTime).toDate(),
       },
     });
   }

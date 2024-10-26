@@ -5,6 +5,7 @@ import {
   PrismaService,
 } from 'src/v2/commands/common/prisma-service';
 import { ApplyingDeterminedEvent } from '../../domain/events/applying-determined.event';
+import dayjs from 'src/lib/dayjs';
 
 @EventsHandler(ApplyingDeterminedEvent)
 export class DetermineApplyingProjectoinUpdater
@@ -21,7 +22,7 @@ export class DetermineApplyingProjectoinUpdater
       },
       data: {
         determinePickUpOption: event.selectPickUpOptionNumber,
-        determinePickUpDateTime: event.currentDate,
+        determinePickUpDateTime: dayjs(event.currentDate).toDate(),
         status: 'DETERMINE',
       },
     });
