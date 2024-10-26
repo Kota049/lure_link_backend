@@ -1,13 +1,5 @@
 import { AggregateRoot } from '@nestjs/cqrs';
-import {
-  Address,
-  ApplyingId,
-  Description,
-  Place,
-  Prefecture,
-  RecruitmentId,
-  UserId,
-} from 'src/v2/recruitment/domain/value-objects';
+
 import {
   DeterminedPickUpDateTime,
   DeterminedPickUpOptionNumber,
@@ -22,6 +14,15 @@ import {
 } from 'common';
 import { ApplyingDeterminedEvent } from './events/applying-determined.event';
 import dayjs from 'src/lib/dayjs';
+import {
+  ApplyingId,
+  RecruitmentId,
+  UserId,
+  Place,
+  Prefecture,
+  Address,
+  Description,
+} from '../../recruitment/domain/value-objects';
 
 export class ApplyingAggregate extends AggregateRoot {
   applyingId: ApplyingId;

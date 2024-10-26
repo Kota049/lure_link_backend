@@ -1,6 +1,6 @@
 import { CommandBus, EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { ApplyingDeterminedEvent } from '../../domain/events/applying-determined.event';
-import { ApproveAppyingCommand } from 'src/v2/recruitment/application/usecases/approve-applying.command';
+import { ApproveAppyingCommand } from '../../../recruitment/application/usecases/approve-applying.command';
 
 @EventsHandler(ApplyingDeterminedEvent)
 export class LinkApplyingToRecruitmentEventHandler

@@ -6,7 +6,7 @@ import {
   Prefecture,
   RecruitmentId,
   UserId,
-} from 'src/v2/recruitment/domain/value-objects';
+} from '../../recruitment/domain/value-objects';
 import { ApplyingAggregate } from './applying';
 import { ApplyingCreatedEvent } from './events/applying-created.event';
 import {
