@@ -8,6 +8,8 @@ import {
 import { CqrsModule } from '@nestjs/cqrs';
 import { LinkApplyingToRecruitmentEventHandler } from './application/event-handlers/link-applying-to-recruitment.event.handler';
 import { ApplyingControllers } from './presentation/applying-controller';
+import { CreateApplyingProjectoinUpdater } from './application/projection-updaters/create-applying.projection-updater';
+import { PRISMA_SERVICE_TOKEN, PrismaService } from '../common/prisma-service';
 
 @Module({
   imports: [CqrsModule],
@@ -17,9 +19,14 @@ import { ApplyingControllers } from './presentation/applying-controller';
       provide: APPLYING_REPOSITORY_TOKEN,
       useClass: ApplyingRepository,
     },
+    {
+      provide: PRISMA_SERVICE_TOKEN,
+      useClass: PrismaService,
+    },
     CreateApplyingCommandHandler,
     DetermineApplyingCommandHandler,
     LinkApplyingToRecruitmentEventHandler,
+    CreateApplyingProjectoinUpdater,
   ],
 })
 export class ApplyingModule {}
