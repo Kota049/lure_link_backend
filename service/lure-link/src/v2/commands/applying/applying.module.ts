@@ -10,6 +10,7 @@ import { LinkApplyingToRecruitmentEventHandler } from './application/event-handl
 import { ApplyingControllers } from './presentation/applying-controller';
 import { CreateApplyingProjectoinUpdater } from './application/projection-updaters/create-applying.projection-updater';
 import { PRISMA_SERVICE_TOKEN, PrismaService } from '../common/prisma-service';
+import { DetermineApplyingProjectoinUpdater } from './application/projection-updaters/determine-applying.projection.updater';
 
 @Module({
   imports: [CqrsModule],
@@ -27,6 +28,7 @@ import { PRISMA_SERVICE_TOKEN, PrismaService } from '../common/prisma-service';
     DetermineApplyingCommandHandler,
     LinkApplyingToRecruitmentEventHandler,
     CreateApplyingProjectoinUpdater,
+    DetermineApplyingProjectoinUpdater,
   ],
 })
 export class ApplyingModule {}
