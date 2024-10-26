@@ -22,6 +22,7 @@ export class DetermineApplyingProjectoinUpdater
       data: {
         determinePickUpOption: event.selectPickUpOptionNumber,
         determinePickUpDateTime: event.currentDate,
+        status: 'DETERMINE',
       },
     });
   }
