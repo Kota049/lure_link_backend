@@ -1,15 +1,28 @@
-import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 
 import { GetRecruitmentListQuery } from '../usecases/get-recruitment-list.query.handler';
 import { RecruitmentProjectionUpdater } from '@prisma/client';
 import { GetRecrutimentsQuery } from '../usecases/get-recruitments.query.handler';
+import { AuthGuard } from 'src/v2/config/auth/auth.guard';
+import { ClsService } from 'nestjs-cls';
 
 @Controller('recruitments')
 export class RecruitmentQueryController {
-  constructor(private readonly queryBus: QueryBus) {}
+  constructor(
+    private readonly queryBus: QueryBus,
+    private readonly cls: ClsService,
+  ) {}
   @Get('/')
+  @UseGuards(AuthGuard)
   async getAll(): Promise<RecruitmentProjectionUpdater[]> {
+    console.log(JSON.stringify(this.cls.get<{ sub: string }>('user')));
     const query = new GetRecruitmentListQuery();
     const res = await this.queryBus.execute<
       GetRecruitmentListQuery,

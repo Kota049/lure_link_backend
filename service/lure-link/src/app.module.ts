@@ -7,6 +7,8 @@ import { CommonModule } from './v2/commands/common/common.module';
 import { RecruitmentController } from './v2/commands/recruitment/presentation/recruitment.controller';
 import { RecruitmentModule } from './v2/commands/recruitment/recruitment.module';
 import { RecruitmentQueryModule } from './v2/queries/recruitment/recruitment.query.module';
+import { CustomConfigModule } from './v2/config/custom-config-module';
+import { ClsModule } from 'nestjs-cls';
 
 @Module({
   imports: [
@@ -15,6 +17,11 @@ import { RecruitmentQueryModule } from './v2/queries/recruitment/recruitment.que
     RecruitmentModule,
     ApplyingModule,
     RecruitmentQueryModule,
+    CustomConfigModule,
+    ClsModule.forRoot({
+      global: true, // 全体で有効にする
+      middleware: { mount: true }, // 自動的にミドルウェアを適用
+    }),
   ],
   controllers: [AppController, RecruitmentController],
   providers: [AppService],
