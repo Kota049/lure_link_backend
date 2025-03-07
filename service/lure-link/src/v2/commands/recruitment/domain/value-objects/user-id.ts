@@ -1,12 +1,12 @@
-import { ulid } from 'ulid';
 import { ValueObject } from '../../../common/value-object.interface';
 import { z } from 'zod';
 import { RecruitmentUnprocessableEntityException } from '../exceptions';
+import { randomUUID } from 'crypto';
 
 export const UserIdSchema = z.string().uuid();
 export class UserId extends ValueObject<string, string> {
   static generate(): UserId {
-    const id = ulid();
+    const id = randomUUID();
     return UserId.from(id);
   }
   static from(value: string): UserId {

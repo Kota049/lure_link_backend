@@ -13,7 +13,7 @@ describe('ApproveAppyingCommnadHandler', () => {
   let commandHandler: ApproveAppyingCommandHandler;
   const mock = createMock<IRecruitmentRepository>();
   const validAggregate = RecruitmentAggregate.create({
-    ownerId: '01JA071A96K19YQJVKV5FDBW6X',
+    ownerId: 'd6a5d94a-823d-4311-ae02-ee2c6569858e',
     destination: {
       prefecture: '神奈川県',
       address: '茅ヶ崎市1-13-31',

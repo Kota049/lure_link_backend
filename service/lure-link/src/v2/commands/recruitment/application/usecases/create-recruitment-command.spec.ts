@@ -6,11 +6,14 @@ import {
 import { createMock } from '@golevelup/ts-jest';
 import dayjs from 'src/lib/dayjs';
 import { CreateRecruitmentCommandHandler } from './create-recruitment-command';
+import { ClsService } from 'nestjs-cls';
 
 describe('CreateRecruitmentCommnadHandler', () => {
   let validCommand;
   let commandHandler: CreateRecruitmentCommandHandler;
   const mock = createMock<IRecruitmentRepository>();
+  const clsService = createMock<ClsService>();
+
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       providers: [
@@ -19,14 +22,18 @@ describe('CreateRecruitmentCommnadHandler', () => {
           useValue: mock,
         },
         CreateRecruitmentCommandHandler,
+        {
+          provide: ClsService,
+          useValue: clsService,
+        },
       ],
     }).compile();
+
     commandHandler = module.get<CreateRecruitmentCommandHandler>(
       CreateRecruitmentCommandHandler,
     );
     mock.save.mockResolvedValue();
     validCommand = {
-      ownerId: '01JA071A96K19YQJVKV5FDBW6X',
       destination: {
         prefecture: '神奈川県',
         address: '茅ヶ崎市1-13-31',
@@ -44,6 +51,11 @@ describe('CreateRecruitmentCommnadHandler', () => {
       budget: 1000,
       description: 'サーフフィッシングです。ウェーダー持参でお願いします',
     };
+    clsService.get.mockImplementation(() => {
+      return {
+        sub: 'c82a7874-0f49-4447-b10f-61caaa033c58',
+      };
+    });
   });
 
   describe('valid repository', () => {
@@ -52,6 +64,7 @@ describe('CreateRecruitmentCommnadHandler', () => {
       expect(actual).toEqual(expect.any(String));
     });
   });
+
   describe('invalid repostory', () => {
     it('occurs error if save failed', async () => {
       const expectedErr = new Error('UT');

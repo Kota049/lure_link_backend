@@ -23,7 +23,7 @@ describe('Recruitment', () => {
   beforeEach(() => {
     validProps = {
       recruitmentId: '01JA071A96K19YQJVKV5FDBW6X',
-      userId: '01JA071A96K19YQJVKV5FDBW6Y',
+      userId: 'd6a5d94a-823d-4311-ae02-ee2c6569858e',
       firstPickUpOption: {
         prefecture: '神奈川県',
         address: '茅ヶ崎市1-13-31',

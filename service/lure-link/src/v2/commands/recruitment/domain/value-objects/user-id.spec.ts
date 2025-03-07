@@ -26,7 +26,7 @@ describe('UserId', () => {
       }).toThrow(Error);
     });
     it('too large length occurs error', () => {
-      const input = 'd6a5d94a-823d-4311-ae02-ee2c6569858e';
+      const input = 'd6a5d94a-823d-4311-ae02-ee2c6569858ew';
       expect(() => {
         UserId.from(input);
       }).toThrow(Error);

@@ -22,7 +22,7 @@ describe('Recruitment', () => {
   let validProps: Omit<RecruitmentCreatedEvent, 'recruitmentId'>;
   beforeEach(() => {
     validProps = {
-      ownerId: '01JA071A96K19YQJVKV5FDBW6X',
+      ownerId: 'c82a7874-0f49-4447-b10f-61caaa033c58',
       destination: {
         prefecture: '神奈川県',
         address: '茅ヶ崎市1-13-31',
