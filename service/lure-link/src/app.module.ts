@@ -9,6 +9,8 @@ import { RecruitmentModule } from './v2/commands/recruitment/recruitment.module'
 import { RecruitmentQueryModule } from './v2/queries/recruitment/recruitment.query.module';
 import { CustomConfigModule } from './v2/config/custom-config-module';
 import { ClsModule } from 'nestjs-cls';
+import { CatchEverythingFilter } from './filters/error-logger-filter';
+import { APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -24,6 +26,12 @@ import { ClsModule } from 'nestjs-cls';
     }),
   ],
   controllers: [AppController, RecruitmentController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_FILTER,
+      useClass: CatchEverythingFilter,
+    },
+  ],
 })
 export class AppModule {}

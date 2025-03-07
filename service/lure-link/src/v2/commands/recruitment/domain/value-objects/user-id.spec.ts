@@ -9,7 +9,7 @@ describe('UserId', () => {
   });
   describe('from', () => {
     it('valid case', () => {
-      const input = '01AN4Z07BY79KA1307SR9X4MV3';
+      const input = 'd6a5d94a-823d-4311-ae02-ee2c6569858e';
       const res = UserId.from(input);
       expect(res.value).toEqual(input);
     });
@@ -20,13 +20,13 @@ describe('UserId', () => {
       }).toThrow(Error);
     });
     it('Invalid letter occurs error', () => {
-      const input = '🤪N4Z07BY79KA1307SR9X4MV3';
+      const input = '🤪6a5d94a-823d-4311-ae02-ee2c6569858e';
       expect(() => {
         UserId.from(input);
       }).toThrow(Error);
     });
     it('too large length occurs error', () => {
-      const input = '01AN4Z07BY79KA1307SR9X4MV3A';
+      const input = 'd6a5d94a-823d-4311-ae02-ee2c6569858e';
       expect(() => {
         UserId.from(input);
       }).toThrow(Error);

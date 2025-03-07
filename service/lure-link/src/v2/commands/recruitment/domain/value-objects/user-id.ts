@@ -3,7 +3,7 @@ import { ValueObject } from '../../../common/value-object.interface';
 import { z } from 'zod';
 import { RecruitmentUnprocessableEntityException } from '../exceptions';
 
-export const UserIdSchema = z.string().ulid();
+export const UserIdSchema = z.string().uuid();
 export class UserId extends ValueObject<string, string> {
   static generate(): UserId {
     const id = ulid();
