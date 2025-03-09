@@ -20,17 +20,16 @@ export class CreateApplyingProjectoinUpdater
         applyingId: event.applyingId,
         recruitmentId: event.recruitmentId,
         userId: event.userId,
-        firstPickUpOptionPrefecture: event.firstPickUpOption.prefecture,
-        firstPickUpOptionAddress: event.firstPickUpOption.address,
+        firstPickUpOptionPrefecture: event.firstPickUpOption.latitude,
+        firstPickUpOptionAddress: event.firstPickUpOption.longitude,
         firstPickUpOptionDescription: event.firstPickUpOption.description,
         status: 'APPLYING',
-        secondPickUpOptionPrefecture:
-          event.secondPickUpOption?.prefecture ?? '',
-        secondPickUpOptionAddress: event.secondPickUpOption?.address ?? '',
+        secondPickUpOptionPrefecture: event.secondPickUpOption?.latitude ?? '',
+        secondPickUpOptionAddress: event.secondPickUpOption?.longitude ?? '',
         secondPickUpOptionDescription:
           event.secondPickUpOption?.description ?? '',
-        thirdPickUpOptionPrefecture: event.thirdPickUpOption?.prefecture ?? '',
-        thirdPickUpOptionAddress: event.thirdPickUpOption?.address ?? '',
+        thirdPickUpOptionPrefecture: event.thirdPickUpOption?.latitude ?? '',
+        thirdPickUpOptionAddress: event.thirdPickUpOption?.longitude ?? '',
         thirdPickUpOptionDescription:
           event.thirdPickUpOption?.description ?? '',
         determinePickUpOption: undefined,

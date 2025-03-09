@@ -29,18 +29,18 @@ describe('CreateApplyingCommnadHandler', () => {
       recruitmentId: '01JA071A96K19YQJVKV5FDBW6Y',
       userId: 'd6a5d94a-823d-4311-ae02-ee2c6569858e',
       firstPickUpOption: {
-        prefecture: '神奈川県',
-        address: '茅ヶ崎市1-13-31',
+        latitude: '神奈川県',
+        longitude: '茅ヶ崎市1-13-31',
         description: '江ノ島です',
       },
       secondPickUpOption: {
-        prefecture: '埼玉県',
-        address: '川越市1-24-14',
+        latitude: '埼玉県',
+        longitude: '川越市1-24-14',
         description: 'ファミリーマート〇〇店前です',
       },
       thirdPickUpOption: {
-        prefecture: '埼玉県',
-        address: '川越市1-24-14',
+        latitude: '埼玉県',
+        longitude: '川越市1-24-14',
         description: 'ファミリーマート〇〇店前です',
       },
     };

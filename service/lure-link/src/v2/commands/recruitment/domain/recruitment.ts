@@ -2,14 +2,13 @@ import { AggregateRoot } from '@nestjs/cqrs';
 import { RecruitmentCreatedEvent } from './events/recruitment-created-event';
 import { RecruitmentUpdatedEvent } from './events/recruitment-updated-event';
 import {
-  Address,
   ApplyingId,
   Budget,
   Description,
   EndDateTime,
+  Latitude,
   MaxParticipant,
   Place,
-  Prefecture,
   RecruitmentId,
   StartDateTime,
   UserId,
@@ -25,6 +24,7 @@ import {
 } from 'common';
 import { ApplyingEndDateTime } from './value-objects/applying-end-date-time';
 import { ApprovedApplyingEvent } from './events/apploved-applying.event';
+import { Longitude } from './value-objects/place-parts/longitude';
 
 export class RecruitmentAggregate extends AggregateRoot {
   recruitmentId: RecruitmentId;
@@ -129,13 +129,13 @@ export class RecruitmentAggregate extends AggregateRoot {
     this.recruitmentId = RecruitmentId.from(event.recruitmentId);
     this.ownerId = UserId.from(event.ownerId);
     this.destination = new Place({
-      prefecture: Prefecture.from(event.destination.prefecture),
-      address: Address.from(event.destination.address),
+      lattitude: Latitude.from(event.destination.latitude),
+      longitude: Longitude.from(event.destination.longitude),
       description: Description.from(event.destination.description),
     });
     this.depature = new Place({
-      prefecture: Prefecture.from(event.depature.prefecture),
-      address: Address.from(event.depature.address),
+      lattitude: Latitude.from(event.depature.latitude),
+      longitude: Longitude.from(event.depature.longitude),
       description: Description.from(event.depature.description),
     });
     this.startDateTime = StartDateTime.from(dayjs(event.startDate).toDate());

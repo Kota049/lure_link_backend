@@ -19,9 +19,9 @@ import {
   RecruitmentId,
   UserId,
   Place,
-  Prefecture,
-  Address,
   Description,
+  Latitude,
+  Longitude,
 } from '../../recruitment/domain/value-objects';
 
 export class ApplyingAggregate extends AggregateRoot {
@@ -110,21 +110,21 @@ export class ApplyingAggregate extends AggregateRoot {
     this.recruitmentId = RecruitmentId.from(event.recruitmentId);
     this.userId = UserId.from(event.userId);
     this.firstPickUpOption = new Place({
-      prefecture: Prefecture.from(event.firstPickUpOption.prefecture),
-      address: Address.from(event.firstPickUpOption.address),
+      lattitude: Latitude.from(event.firstPickUpOption.latitude),
+      longitude: Longitude.from(event.firstPickUpOption.longitude),
       description: Description.from(event.firstPickUpOption.description),
     });
     if (event.secondPickUpOption !== undefined) {
       this.secondPickUpOption = new Place({
-        prefecture: Prefecture.from(event.secondPickUpOption.prefecture),
-        address: Address.from(event.secondPickUpOption.address),
+        lattitude: Latitude.from(event.secondPickUpOption.latitude),
+        longitude: Longitude.from(event.secondPickUpOption.longitude),
         description: Description.from(event.secondPickUpOption.description),
       });
     }
     if (event.thirdPickUpOption !== undefined) {
       this.thirdPickUpOption = new Place({
-        prefecture: Prefecture.from(event.thirdPickUpOption.prefecture),
-        address: Address.from(event.thirdPickUpOption.address),
+        lattitude: Latitude.from(event.thirdPickUpOption.latitude),
+        longitude: Longitude.from(event.thirdPickUpOption.longitude),
         description: Description.from(event.thirdPickUpOption.description),
       });
     }

@@ -19,7 +19,7 @@ export class RecruitmentCreatedEvent implements IEvent {
 }
 
 export interface Place {
-  prefecture: string;
-  address: string;
+  latitude: string;
+  longitude: string;
   description: string;
 }

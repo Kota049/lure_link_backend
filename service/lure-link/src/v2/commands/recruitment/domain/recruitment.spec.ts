@@ -2,21 +2,21 @@ import dayjs from 'src/lib/dayjs';
 import { RecruitmentCreatedEvent } from './events/recruitment-created-event';
 import { RecruitmentAggregate } from './recruitment';
 import {
-  Address,
   Budget,
   Description,
   EndDateTime,
   MaxParticipant,
   Place,
-  Prefecture,
   StartDateTime,
   UserId,
   RecruitmentId,
   ApplyingId,
+  Latitude,
 } from './value-objects';
 import { RecruitmentUnprocessableEntityException } from './exceptions';
 import { ApplyingEndDateTime } from './value-objects/applying-end-date-time';
 import { ApprovedApplyingEvent } from './events/apploved-applying.event';
+import { Longitude } from './value-objects/place-parts/longitude';
 
 describe('Recruitment', () => {
   let validProps: Omit<RecruitmentCreatedEvent, 'recruitmentId'>;
@@ -24,13 +24,13 @@ describe('Recruitment', () => {
     validProps = {
       ownerId: 'c82a7874-0f49-4447-b10f-61caaa033c58',
       destination: {
-        prefecture: '神奈川県',
-        address: '茅ヶ崎市1-13-31',
+        latitude: '神奈川県',
+        longitude: '茅ヶ崎市1-13-31',
         description: '江ノ島です',
       },
       depature: {
-        prefecture: '埼玉県',
-        address: '川越市1-24-14',
+        latitude: '埼玉県',
+        longitude: '川越市1-24-14',
         description: 'ファミリーマート〇〇店前です',
       },
       endDate: dayjs('2024-10-11').toISOString(),
@@ -50,15 +50,15 @@ describe('Recruitment', () => {
         expect(actual.ownerId).toEqual(UserId.from(validProps.ownerId));
         expect(actual.destination).toEqual(
           new Place({
-            prefecture: Prefecture.from(validProps.destination.prefecture),
-            address: Address.from(validProps.destination.address),
+            lattitude: Latitude.from(validProps.destination.latitude),
+            longitude: Longitude.from(validProps.destination.longitude),
             description: Description.from(validProps.destination.description),
           }),
         );
         expect(actual.depature).toEqual(
           new Place({
-            prefecture: Prefecture.from(validProps.depature.prefecture),
-            address: Address.from(validProps.depature.address),
+            lattitude: Latitude.from(validProps.depature.latitude),
+            longitude: Longitude.from(validProps.depature.longitude),
             description: Description.from(validProps.depature.description),
           }),
         );
