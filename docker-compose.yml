@@ -10,17 +10,17 @@ services:
       - ./service:/app
     environment:
       - DISPLAY=:10
+      - DATABASE_URL=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE}
   db:
-    build:
-      dockerfile: docker/db/Dockerfile.db
+    image: mysql:8.0
     ports:
-      - "5432:5432"
+      - "3306:3306"
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=keiba
-      - TZ="Asia/Tokyo"
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
-      - data_store:/var/lib/postgresql/data
+      - data_store:/var/lib/mysql
 volumes:
   data_store:

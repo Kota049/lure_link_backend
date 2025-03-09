@@ -10,7 +10,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 model Event {
@@ -47,9 +47,13 @@ model RecruitmentProjectionUpdater{
   id Int @id @default(autoincrement())
   recruitmentId String @unique()
   ownerId String
+  destinationLatitude String
+  destinationLongitude String
   destinationPrefecture String
   destinationAddress String
   destinationDescription String
+  depatureLatitude String
+  depatureLongitude String
   depaturePrefecture String
   depatureAddress String
   depatureDescription String
